@@ -1,0 +1,71 @@
+{
+  "seed": 2019,
+  "framing": "Supplied SepsisLabel, restricted to hours strictly before label-implied onset; first-row-positive and uncertain-transition records excluded",
+  "train_fraction": 0.7,
+  "validation_fraction": 0.15,
+  "test_fraction": 0.15,
+  "validation_roles": [
+    "selection",
+    "calibration",
+    "threshold"
+  ],
+  "max_training_hours": 160000,
+  "training_sampling": "uniform without replacement across eligible training hours, seed fixed before fitting; same rows for all models",
+  "evaluate_all_eligible_validation_test_hours": true,
+  "model_selection_metric": "average_precision",
+  "model_selection_tie_break": "first configuration in listed order",
+  "logistic_regression": {
+    "C": 1.0,
+    "max_iter": 1000,
+    "class_weight": "balanced",
+    "solver": "lbfgs"
+  },
+  "random_forest": {
+    "n_estimators": 120,
+    "max_depth": 12,
+    "min_samples_leaf": 20,
+    "max_features": "sqrt",
+    "class_weight": "balanced_subsample",
+    "n_jobs": 4
+  },
+  "xgboost_shared": {
+    "n_estimators": 250,
+    "learning_rate": 0.05,
+    "min_child_weight": 10,
+    "reg_lambda": 10,
+    "subsample": 0.8,
+    "colsample_bytree": 0.9,
+    "tree_method": "hist",
+    "max_bin": 128,
+    "n_jobs": 4,
+    "objective": "binary:logistic",
+    "eval_metric": "aucpr"
+  },
+  "xgboost_candidates": [
+    {
+      "max_depth": 3,
+      "positive_weight_policy": "none"
+    },
+    {
+      "max_depth": 4,
+      "positive_weight_policy": "none"
+    },
+    {
+      "max_depth": 3,
+      "positive_weight_policy": "sqrt_negative_over_positive"
+    }
+  ],
+  "calibration": "sigmoid of clipped raw-probability logit, separately fit for each model on validation/calibration",
+  "alternative_thresholds": {
+    "selected_precision": 0.2,
+    "selected_recall": 0.8,
+    "primary_research_threshold": "maximum F1 on validation/threshold, highest threshold resolves ties"
+  },
+  "prototype_thresholds": {
+    "watch_inclusive": 0.3,
+    "elevated_inclusive": 0.5,
+    "critical_exclusive": 0.75
+  },
+  "clinical_validation": false,
+  "configuration_status": "prespecified before model fitting"
+}

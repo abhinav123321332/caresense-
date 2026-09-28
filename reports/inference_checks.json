@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "verified_utc": "2026-09-28T14:57:45.700364+00:00",
+  "duration_seconds": 17.464384099999734,
+  "model_version": "caresense-0.1.0-676972cccc",
+  "frozen_artifact_hashes_verified": 13,
+  "synthetic_patients": 5,
+  "causal_prefix_predictions": 60,
+  "reload_exact_match": true,
+  "native_json_max_probability_difference": 0.0,
+  "trajectory_max_prefix_probability_difference": 0.0,
+  "maximum_local_shap_additivity_error": 1.3854223652742803e-06,
+  "empty_clinical_history_withheld": true,
+  "all_missing_labs_supported": true,
+  "notice": "These are runtime correctness checks, not clinical performance estimates."
+}

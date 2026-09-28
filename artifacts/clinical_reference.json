@@ -1,0 +1,25 @@
+{
+  "reference_id": "ssc_hour1_2019",
+  "title": "SSC Hour-1 Bundle — static reference (2019 version)",
+  "source_organization": "SCCM/ESICM",
+  "source_copyright_year": 2019,
+  "verified_on": "2026-09-22",
+  "content_type": "static_reference",
+  "patient_specific": false,
+  "historical_reference": true,
+  "source_url": "https://www.sccm.org/SCCM/media/SCCM/PDFs/Surviving-Sepsis-Campaign-Hour-1-Bundle.pdf",
+  "current_guideline_year_as_verified": 2026,
+  "current_guideline_url": "https://www.sccm.org/survivingsepsiscampaign/guidelines-and-resources/surviving-sepsis-campaign-adult-guidelines",
+  "display_notice": "Clinician reference only. A CareSense Critical risk tier is a model output, not a sepsis diagnosis or a decision to start this bundle. Qualified healthcare professionals assess eligibility and choose treatment using current guidance and local protocols.",
+  "reference_topics": [
+    "Lactate testing, including repeat measurement when the initial value is elevated.",
+    "Blood-culture collection before antibiotics.",
+    "Prompt clinician-directed broad-spectrum antimicrobial treatment.",
+    "Assessment for initial crystalloid resuscitation when hypotension or markedly elevated lactate is present.",
+    "Assessment for vasopressor support when hypotension persists during or after resuscitation."
+  ],
+  "topic_notice": "These are reference topics, not patient-specific instructions. Read the official 2019 bundle for its conditions and numerical details, and consult the current adult guidelines and local protocols.",
+  "eligibility_notice": "No checklist item is automatically applicable, completed or overdue based on model risk.",
+  "display_rule": "May be shown as the same static reference when model probability is strictly greater than 0.75. The risk threshold never establishes bundle eligibility.",
+  "automatic_treatment_orders": false
+}

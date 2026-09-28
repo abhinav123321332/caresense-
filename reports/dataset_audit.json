@@ -1,0 +1,1119 @@
+{
+  "status": "verified",
+  "started_utc": "2026-09-23T01:37:20.052049+00:00",
+  "census": {
+    "training_setA": 20336,
+    "training_setB": 20000,
+    "total": 40336,
+    "expected": {
+      "training_setA": 20336,
+      "training_setB": 20000,
+      "total": 40336
+    },
+    "verified": true
+  },
+  "columns": [
+    "HR",
+    "O2Sat",
+    "Temp",
+    "SBP",
+    "MAP",
+    "DBP",
+    "Resp",
+    "EtCO2",
+    "BaseExcess",
+    "HCO3",
+    "FiO2",
+    "pH",
+    "PaCO2",
+    "SaO2",
+    "AST",
+    "BUN",
+    "Alkalinephos",
+    "Calcium",
+    "Chloride",
+    "Creatinine",
+    "Bilirubin_direct",
+    "Glucose",
+    "Lactate",
+    "Magnesium",
+    "Phosphate",
+    "Potassium",
+    "Bilirubin_total",
+    "TroponinI",
+    "Hct",
+    "Hgb",
+    "PTT",
+    "WBC",
+    "Fibrinogen",
+    "Platelets",
+    "Age",
+    "Gender",
+    "Unit1",
+    "Unit2",
+    "HospAdmTime",
+    "ICULOS",
+    "SepsisLabel"
+  ],
+  "original_raw_data_modified": false,
+  "unusual_formatting": [],
+  "structurally_invalid_patients": [],
+  "source_sets": {
+    "training_setA": {
+      "patients": 20336,
+      "rows": 790215,
+      "sepsis_patients": 1790,
+      "positive_hours": 17136
+    },
+    "training_setB": {
+      "patients": 20000,
+      "rows": 761995,
+      "sepsis_patients": 1142,
+      "positive_hours": 10780
+    }
+  },
+  "patient_files": 40336,
+  "rows": 1552210,
+  "statistics": {
+    "HR": {
+      "n": 1398811,
+      "min": 20.0,
+      "max": 280.0,
+      "mean": 84.58144338298742,
+      "median": 83.5,
+      "p05": 59.0,
+      "p25": 72.0,
+      "p75": 95.5,
+      "p95": 115.0,
+      "missing_count": 153399,
+      "missing_percent": 9.882618975525219,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "audit_bounds": [
+        0,
+        350
+      ],
+      "out_of_range_count": 0,
+      "negative_value_count": 0
+    },
+    "O2Sat": {
+      "n": 1349474,
+      "min": 20.0,
+      "max": 100.0,
+      "mean": 97.19395453339597,
+      "median": 98.0,
+      "p05": 92.5,
+      "p25": 96.0,
+      "p75": 99.5,
+      "p95": 100.0,
+      "missing_count": 202736,
+      "missing_percent": 13.061119307310221,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "audit_bounds": [
+        0,
+        100
+      ],
+      "out_of_range_count": 0,
+      "negative_value_count": 0
+    },
+    "Temp": {
+      "n": 525226,
+      "min": 20.9,
+      "max": 50.0,
+      "mean": 36.97722824079539,
+      "median": 37.0,
+      "p05": 35.8,
+      "p25": 36.5,
+      "p75": 37.5,
+      "p95": 38.2,
+      "missing_count": 1026984,
+      "missing_percent": 66.16269705774347,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "audit_bounds": [
+        20,
+        45
+      ],
+      "out_of_range_count": 2,
+      "negative_value_count": 0
+    },
+    "SBP": {
+      "n": 1325945,
+      "min": 20.0,
+      "max": 300.0,
+      "mean": 123.75046539637768,
+      "median": 121.0,
+      "p05": 91.0,
+      "p25": 107.0,
+      "p75": 138.0,
+      "p95": 165.0,
+      "missing_count": 226265,
+      "missing_percent": 14.576958014701619,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "audit_bounds": [
+        0,
+        350
+      ],
+      "out_of_range_count": 0,
+      "negative_value_count": 0
+    },
+    "MAP": {
+      "n": 1358940,
+      "min": 20.0,
+      "max": 300.0,
+      "mean": 82.40009988667639,
+      "median": 80.0,
+      "p05": 60.0,
+      "p25": 71.0,
+      "p75": 92.0,
+      "p95": 111.0,
+      "missing_count": 193270,
+      "missing_percent": 12.451279143930266,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "audit_bounds": [
+        0,
+        300
+      ],
+      "out_of_range_count": 0,
+      "negative_value_count": 0
+    },
+    "DBP": {
+      "n": 1065656,
+      "min": 20.0,
+      "max": 300.0,
+      "mean": 63.83055577034239,
+      "median": 62.0,
+      "p05": 44.0,
+      "p25": 54.0,
+      "p75": 72.0,
+      "p95": 89.0,
+      "missing_count": 486554,
+      "missing_percent": 31.34588747656567,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "audit_bounds": [
+        0,
+        250
+      ],
+      "out_of_range_count": 53,
+      "negative_value_count": 0
+    },
+    "Resp": {
+      "n": 1313875,
+      "min": 1.0,
+      "max": 100.0,
+      "mean": 18.726497855579865,
+      "median": 18.0,
+      "p05": 12.0,
+      "p25": 15.0,
+      "p75": 21.5,
+      "p95": 28.0,
+      "missing_count": 238335,
+      "missing_percent": 15.354558983642677,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "audit_bounds": [
+        0,
+        100
+      ],
+      "out_of_range_count": 0,
+      "negative_value_count": 0
+    },
+    "EtCO2": {
+      "n": 57636,
+      "min": 10.0,
+      "max": 100.0,
+      "mean": 32.95765667291276,
+      "median": 33.0,
+      "p05": 19.0,
+      "p25": 28.0,
+      "p75": 38.0,
+      "p95": 45.0,
+      "missing_count": 1494574,
+      "missing_percent": 96.2868426308296,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "audit_bounds": [
+        0,
+        150
+      ],
+      "out_of_range_count": 0,
+      "negative_value_count": 0
+    },
+    "BaseExcess": {
+      "n": 84145,
+      "min": -32.0,
+      "max": 100.0,
+      "mean": -0.6899191871174758,
+      "median": 0.0,
+      "p05": -7.5,
+      "p25": -3.0,
+      "p75": 1.0,
+      "p95": 6.0,
+      "missing_count": 1468065,
+      "missing_percent": 94.57901959142126,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      }
+    },
+    "HCO3": {
+      "n": 65028,
+      "min": 0.0,
+      "max": 55.0,
+      "mean": 24.075480562219354,
+      "median": 24.0,
+      "p05": 17.0,
+      "p25": 22.0,
+      "p75": 26.8,
+      "p95": 31.0,
+      "missing_count": 1487182,
+      "missing_percent": 95.81061840859162,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "negative_value_count": 0
+    },
+    "FiO2": {
+      "n": 129365,
+      "min": -50.0,
+      "max": 4000.0,
+      "mean": 0.5548386348703283,
+      "median": 0.5,
+      "p05": 0.35,
+      "p25": 0.4,
+      "p75": 0.6,
+      "p95": 1.0,
+      "missing_count": 1422845,
+      "missing_percent": 91.66575398947307,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "audit_bounds": [
+        0,
+        1
+      ],
+      "out_of_range_count": 32,
+      "negative_value_count": 2
+    },
+    "pH": {
+      "n": 107573,
+      "min": 6.62,
+      "max": 7.93,
+      "mean": 7.378934026196164,
+      "median": 7.38,
+      "p05": 7.26,
+      "p25": 7.34,
+      "p75": 7.43,
+      "p95": 7.49,
+      "missing_count": 1444637,
+      "missing_percent": 93.06968773555124,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "audit_bounds": [
+        6,
+        8
+      ],
+      "out_of_range_count": 0,
+      "negative_value_count": 0
+    },
+    "PaCO2": {
+      "n": 86301,
+      "min": 10.0,
+      "max": 100.0,
+      "mean": 41.021868808009174,
+      "median": 40.0,
+      "p05": 29.0,
+      "p25": 35.0,
+      "p75": 45.0,
+      "p95": 57.0,
+      "missing_count": 1465909,
+      "missing_percent": 94.44012085993519,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "negative_value_count": 0
+    },
+    "SaO2": {
+      "n": 53561,
+      "min": 23.0,
+      "max": 100.0,
+      "mean": 92.65418774854838,
+      "median": 97.0,
+      "p05": 64.0,
+      "p25": 94.0,
+      "p75": 98.0,
+      "p95": 99.1,
+      "missing_count": 1498649,
+      "missing_percent": 96.54937154122187,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "audit_bounds": [
+        0,
+        100
+      ],
+      "out_of_range_count": 0,
+      "negative_value_count": 0
+    },
+    "AST": {
+      "n": 25183,
+      "min": 3.0,
+      "max": 9961.0,
+      "mean": 260.22338482309493,
+      "median": 41.0,
+      "p05": 14.0,
+      "p25": 22.0,
+      "p75": 111.0,
+      "p95": 1132.6999999999935,
+      "missing_count": 1527027,
+      "missing_percent": 98.37760354591195,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "negative_value_count": 0
+    },
+    "BUN": {
+      "n": 106568,
+      "min": 1.0,
+      "max": 268.0,
+      "mean": 23.91545210569777,
+      "median": 17.0,
+      "p05": 6.0,
+      "p25": 12.0,
+      "p75": 28.0,
+      "p95": 65.0,
+      "missing_count": 1445642,
+      "missing_percent": 93.13443412940259,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "negative_value_count": 0
+    },
+    "Alkalinephos": {
+      "n": 24941,
+      "min": 7.0,
+      "max": 3833.0,
+      "mean": 102.48366144100076,
+      "median": 74.0,
+      "p05": 35.0,
+      "p25": 54.0,
+      "p75": 108.0,
+      "p95": 254.0,
+      "missing_count": 1527269,
+      "missing_percent": 98.39319421985427,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "negative_value_count": 0
+    },
+    "Calcium": {
+      "n": 91331,
+      "min": 1.0,
+      "max": 27.9,
+      "mean": 7.557530849328267,
+      "median": 8.3,
+      "p05": 1.17,
+      "p25": 7.7,
+      "p75": 8.7,
+      "p95": 9.5,
+      "missing_count": 1460879,
+      "missing_percent": 94.116066769316,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "negative_value_count": 0
+    },
+    "Chloride": {
+      "n": 70466,
+      "min": 26.0,
+      "max": 145.0,
+      "mean": 105.82790991400108,
+      "median": 106.0,
+      "p05": 96.0,
+      "p25": 102.0,
+      "p75": 109.0,
+      "p95": 115.0,
+      "missing_count": 1481744,
+      "missing_percent": 95.46027921479697,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "negative_value_count": 0
+    },
+    "Creatinine": {
+      "n": 94616,
+      "min": 0.1,
+      "max": 46.6,
+      "mean": 1.5106993531749389,
+      "median": 0.94,
+      "p05": 0.5,
+      "p25": 0.7,
+      "p75": 1.43,
+      "p95": 4.9,
+      "missing_count": 1457594,
+      "missing_percent": 93.90443303418996,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "negative_value_count": 0
+    },
+    "Bilirubin_direct": {
+      "n": 2990,
+      "min": 0.01,
+      "max": 37.5,
+      "mean": 1.8361772575250837,
+      "median": 0.445,
+      "p05": 0.1,
+      "p25": 0.2,
+      "p75": 1.7,
+      "p95": 8.1,
+      "missing_count": 1549220,
+      "missing_percent": 99.80737142525818,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "negative_value_count": 0
+    },
+    "Glucose": {
+      "n": 265516,
+      "min": 10.0,
+      "max": 988.0,
+      "mean": 136.93228328989588,
+      "median": 127.0,
+      "p05": 82.0,
+      "p25": 106.0,
+      "p75": 153.0,
+      "p95": 229.0,
+      "missing_count": 1286694,
+      "missing_percent": 82.89432486583645,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "negative_value_count": 0
+    },
+    "Lactate": {
+      "n": 41446,
+      "min": 0.2,
+      "max": 31.0,
+      "mean": 2.6466660232591805,
+      "median": 1.8,
+      "p05": 0.8,
+      "p25": 1.26,
+      "p75": 3.0,
+      "p95": 7.35,
+      "missing_count": 1510764,
+      "missing_percent": 97.32987160242493,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "audit_bounds": [
+        0,
+        50
+      ],
+      "out_of_range_count": 0,
+      "negative_value_count": 0
+    },
+    "Magnesium": {
+      "n": 97951,
+      "min": 0.2,
+      "max": 9.8,
+      "mean": 2.05145021490337,
+      "median": 2.0,
+      "p05": 1.5,
+      "p25": 1.8,
+      "p75": 2.2,
+      "p95": 2.7,
+      "missing_count": 1454259,
+      "missing_percent": 93.68957808543946,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "negative_value_count": 0
+    },
+    "Phosphate": {
+      "n": 62301,
+      "min": 0.2,
+      "max": 18.8,
+      "mean": 3.5442376526861525,
+      "median": 3.3,
+      "p05": 1.7,
+      "p25": 2.6,
+      "p75": 4.1,
+      "p95": 6.2,
+      "missing_count": 1489909,
+      "missing_percent": 95.98630339966886,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "negative_value_count": 0
+    },
+    "Potassium": {
+      "n": 144525,
+      "min": 1.0,
+      "max": 27.5,
+      "mean": 4.135527970939283,
+      "median": 4.1,
+      "p05": 3.3,
+      "p25": 3.7,
+      "p75": 4.4,
+      "p95": 5.2,
+      "missing_count": 1407685,
+      "missing_percent": 90.6890820185413,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "negative_value_count": 0
+    },
+    "Bilirubin_total": {
+      "n": 23141,
+      "min": 0.1,
+      "max": 49.6,
+      "mean": 2.1140594615617303,
+      "median": 0.9,
+      "p05": 0.3,
+      "p25": 0.5,
+      "p75": 1.7,
+      "p95": 8.2,
+      "missing_count": 1529069,
+      "missing_percent": 98.5091579103343,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "negative_value_count": 0
+    },
+    "TroponinI": {
+      "n": 14781,
+      "min": 0.01,
+      "max": 440.0,
+      "mean": 8.290099451999188,
+      "median": 0.3,
+      "p05": 0.01,
+      "p25": 0.04,
+      "p75": 3.98,
+      "p95": 40.0,
+      "missing_count": 1537429,
+      "missing_percent": 99.04774482834152,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "negative_value_count": 0
+    },
+    "Hct": {
+      "n": 137433,
+      "min": 5.5,
+      "max": 71.7,
+      "mean": 30.79409334002751,
+      "median": 30.3,
+      "p05": 22.7,
+      "p25": 27.0,
+      "p75": 34.1,
+      "p95": 40.6,
+      "missing_count": 1414777,
+      "missing_percent": 91.1459789590326,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "audit_bounds": [
+        0,
+        100
+      ],
+      "out_of_range_count": 0,
+      "negative_value_count": 0
+    },
+    "Hgb": {
+      "n": 114591,
+      "min": 2.2,
+      "max": 32.0,
+      "mean": 10.430832787915282,
+      "median": 10.3,
+      "p05": 7.5,
+      "p25": 9.1,
+      "p75": 11.7,
+      "p95": 13.9,
+      "missing_count": 1437619,
+      "missing_percent": 92.61755819122412,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "audit_bounds": [
+        0,
+        40
+      ],
+      "out_of_range_count": 0,
+      "negative_value_count": 0
+    },
+    "PTT": {
+      "n": 45699,
+      "min": 12.5,
+      "max": 250.0,
+      "mean": 41.23119346156371,
+      "median": 32.4,
+      "p05": 23.5,
+      "p25": 27.8,
+      "p75": 42.8,
+      "p95": 91.9,
+      "missing_count": 1506511,
+      "missing_percent": 97.05587517152962,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "negative_value_count": 0
+    },
+    "WBC": {
+      "n": 99447,
+      "min": 0.1,
+      "max": 440.0,
+      "mean": 11.44640501975927,
+      "median": 10.3,
+      "p05": 4.5,
+      "p25": 7.6,
+      "p75": 13.8,
+      "p95": 21.3,
+      "missing_count": 1452763,
+      "missing_percent": 93.59319937379607,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "audit_bounds": [
+        0,
+        500
+      ],
+      "out_of_range_count": 0,
+      "negative_value_count": 0
+    },
+    "Fibrinogen": {
+      "n": 10242,
+      "min": 34.0,
+      "max": 1760.0,
+      "mean": 287.3857059168131,
+      "median": 250.0,
+      "p05": 112.0,
+      "p25": 184.0,
+      "p75": 349.0,
+      "p95": 600.9499999999989,
+      "missing_count": 1541968,
+      "missing_percent": 99.34016660116866,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "negative_value_count": 0
+    },
+    "Platelets": {
+      "n": 92209,
+      "min": 1.0,
+      "max": 2322.0,
+      "mean": 196.01391078961922,
+      "median": 181.0,
+      "p05": 65.0,
+      "p25": 126.0,
+      "p75": 244.0,
+      "p95": 378.0,
+      "missing_count": 1460001,
+      "missing_percent": 94.05950225807075,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "negative_value_count": 0
+    },
+    "Age": {
+      "n": 1552210,
+      "min": 14.0,
+      "max": 100.0,
+      "mean": 62.00946887985517,
+      "median": 64.0,
+      "p05": 30.4,
+      "p25": 51.68,
+      "p75": 74.0,
+      "p95": 85.0,
+      "missing_count": 0,
+      "missing_percent": 0.0,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "audit_bounds": [
+        0,
+        120
+      ],
+      "out_of_range_count": 0,
+      "negative_value_count": 0
+    },
+    "Gender": {
+      "n": 1552210,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.5592690422043409,
+      "median": 1.0,
+      "p05": 0.0,
+      "p25": 0.0,
+      "p75": 1.0,
+      "p95": 1.0,
+      "missing_count": 0,
+      "missing_percent": 0.0,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "audit_bounds": [
+        0,
+        1
+      ],
+      "out_of_range_count": 0,
+      "negative_value_count": 0
+    },
+    "Unit1": {
+      "n": 940250,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.49657112470087744,
+      "median": 0.0,
+      "p05": 0.0,
+      "p25": 0.0,
+      "p75": 1.0,
+      "p95": 1.0,
+      "missing_count": 611960,
+      "missing_percent": 39.42507779230903,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "audit_bounds": [
+        0,
+        1
+      ],
+      "out_of_range_count": 0,
+      "negative_value_count": 0
+    },
+    "Unit2": {
+      "n": 940250,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.5034288752991226,
+      "median": 1.0,
+      "p05": 0.0,
+      "p25": 0.0,
+      "p75": 1.0,
+      "p95": 1.0,
+      "missing_count": 611960,
+      "missing_percent": 39.42507779230903,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "audit_bounds": [
+        0,
+        1
+      ],
+      "out_of_range_count": 0,
+      "negative_value_count": 0
+    },
+    "HospAdmTime": {
+      "n": 1552202,
+      "min": -5366.86,
+      "max": 23.99,
+      "mean": -56.125121768945014,
+      "median": -6.03,
+      "p05": -262.62,
+      "p25": -47.05,
+      "p75": -0.04,
+      "p95": -0.01,
+      "missing_count": 8,
+      "missing_percent": 0.0005153941799112234,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      }
+    },
+    "ICULOS": {
+      "n": 1552210,
+      "min": 1.0,
+      "max": 336.0,
+      "mean": 26.994992301299437,
+      "median": 21.0,
+      "p05": 3.0,
+      "p25": 11.0,
+      "p75": 34.0,
+      "p95": 63.0,
+      "missing_count": 0,
+      "missing_percent": 0.0,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      },
+      "audit_bounds": [
+        1,
+        10000
+      ],
+      "out_of_range_count": 0,
+      "negative_value_count": 0
+    },
+    "SepsisLabel": {
+      "n": 1552210,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.01798467990800214,
+      "median": 0.0,
+      "p05": 0.0,
+      "p25": 0.0,
+      "p75": 0.0,
+      "p95": 0.0,
+      "missing_count": 0,
+      "missing_percent": 0.0,
+      "infinite_count": 0,
+      "dtypes": {
+        "float64": 40336
+      }
+    }
+  },
+  "data_types": {
+    "HR": {
+      "float64": 40336
+    },
+    "O2Sat": {
+      "float64": 40336
+    },
+    "Temp": {
+      "float64": 40336
+    },
+    "SBP": {
+      "float64": 40336
+    },
+    "MAP": {
+      "float64": 40336
+    },
+    "DBP": {
+      "float64": 40336
+    },
+    "Resp": {
+      "float64": 40336
+    },
+    "EtCO2": {
+      "float64": 40336
+    },
+    "BaseExcess": {
+      "float64": 40336
+    },
+    "HCO3": {
+      "float64": 40336
+    },
+    "FiO2": {
+      "float64": 40336
+    },
+    "pH": {
+      "float64": 40336
+    },
+    "PaCO2": {
+      "float64": 40336
+    },
+    "SaO2": {
+      "float64": 40336
+    },
+    "AST": {
+      "float64": 40336
+    },
+    "BUN": {
+      "float64": 40336
+    },
+    "Alkalinephos": {
+      "float64": 40336
+    },
+    "Calcium": {
+      "float64": 40336
+    },
+    "Chloride": {
+      "float64": 40336
+    },
+    "Creatinine": {
+      "float64": 40336
+    },
+    "Bilirubin_direct": {
+      "float64": 40336
+    },
+    "Glucose": {
+      "float64": 40336
+    },
+    "Lactate": {
+      "float64": 40336
+    },
+    "Magnesium": {
+      "float64": 40336
+    },
+    "Phosphate": {
+      "float64": 40336
+    },
+    "Potassium": {
+      "float64": 40336
+    },
+    "Bilirubin_total": {
+      "float64": 40336
+    },
+    "TroponinI": {
+      "float64": 40336
+    },
+    "Hct": {
+      "float64": 40336
+    },
+    "Hgb": {
+      "float64": 40336
+    },
+    "PTT": {
+      "float64": 40336
+    },
+    "WBC": {
+      "float64": 40336
+    },
+    "Fibrinogen": {
+      "float64": 40336
+    },
+    "Platelets": {
+      "float64": 40336
+    },
+    "Age": {
+      "float64": 40336
+    },
+    "Gender": {
+      "float64": 40336
+    },
+    "Unit1": {
+      "float64": 40336
+    },
+    "Unit2": {
+      "float64": 40336
+    },
+    "HospAdmTime": {
+      "float64": 40336
+    },
+    "ICULOS": {
+      "float64": 40336
+    },
+    "SepsisLabel": {
+      "float64": 40336
+    }
+  },
+  "data_type_interpretation": "All published columns are parsed and validated as float64; this representation retains NaN measurements. Binary domains and integer-valued ICULOS are verified separately.",
+  "positive_observations": 27916,
+  "negative_observations": 1524294,
+  "positive_observation_percent": 1.798467990800214,
+  "patients_with_sepsis": 2932,
+  "patients_without_sepsis": 37404,
+  "sepsis_patient_percent": 7.268940896469655,
+  "icu_length_of_stay_rows": {
+    "n": 40336,
+    "min": 8.0,
+    "max": 336.0,
+    "mean": 38.48200119000396,
+    "median": 38.0,
+    "p05": 14.0,
+    "p25": 24.0,
+    "p75": 47.0,
+    "p95": 58.0
+  },
+  "icu_last_hour": {
+    "n": 40336,
+    "min": 8.0,
+    "max": 336.0,
+    "mean": 39.01011503371678,
+    "median": 39.0,
+    "p05": 15.0,
+    "p25": 24.0,
+    "p75": 47.0,
+    "p95": 58.0
+  },
+  "patient_age": {
+    "n": 40336,
+    "min": 14.0,
+    "max": 100.0,
+    "mean": 61.64342324474415,
+    "median": 63.11,
+    "p05": 30.0,
+    "p25": 51.0,
+    "p75": 74.0,
+    "p95": 85.0
+  },
+  "quality": {
+    "duplicate_full_rows": 0,
+    "duplicate_measurement_rows_ignoring_time_and_label": 93849,
+    "missing_hour_count": 0,
+    "patients_with_hour_gaps": 0,
+    "patients_starting_after_hour_1": 8793,
+    "patients_with_changing_static_fields": 0
+  },
+  "identical_raw_file_groups": [],
+  "identical_raw_file_group_count": 0,
+  "identical_raw_file_extra_copies": 0,
+  "identical_numeric_record_groups": [],
+  "identical_numeric_record_group_count": 0,
+  "identical_numeric_record_extra_copies": 0,
+  "label_dynamics": {
+    "left_censored_patients": 426,
+    "nonmonotonic_label_patients": 0,
+    "observed_contiguous_transition_patients": 2506,
+    "inferred_onset_within_observation_patients": 2491,
+    "primary_eligible_patients": 39910,
+    "primary_rows": 1539289,
+    "primary_positive_rows": 14995,
+    "positive_hours_per_sepsis_patient": {
+      "n": 2932,
+      "min": 1.0,
+      "max": 10.0,
+      "mean": 9.521145975443384,
+      "median": 10.0,
+      "p05": 8.0,
+      "p25": 9.0,
+      "p75": 10.0,
+      "p95": 10.0
+    }
+  },
+  "audit_bounds_interpretation": "Broad mechanical plausibility flags only; values are not removed from original raw data. FiO2 values above 1 may indicate mixed units and need explicit handling.",
+  "duplicates_interpretation": "Full-row duplicates include ICULOS; measurement duplicates ignore ICULOS and target and may represent repeated or missing observations rather than duplicate records.",
+  "time_interpretation": "ICULOS supplies relative hourly coordinates; absolute wall-clock timestamps are not supplied. Missing-hour counts detect gaps in this coordinate only.",
+  "label_interpretation": "Published SepsisLabel is shifted six hours before challenge onset. Exact reconstructed onset requires an observed contiguous 0-to-1 transition; first-row positives are left censored.",
+  "label_source": "https://physionet.org/content/challenge-2019/1.0.0/",
+  "finished_utc": "2026-09-23T01:46:41.246510+00:00"
+}

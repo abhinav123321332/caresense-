@@ -1,0 +1,34 @@
+{
+  "status": "VERIFIED AND FROZEN",
+  "checked_utc": "2026-09-27T08:59:23.202079+00:00",
+  "frozen_artifact_hashes": {
+    "models/logistic_regression.pkl": "d0f5a57b9cea00fb4a6751cdb16d41db71c2041ececffeb8b150c5442f298707",
+    "models/random_forest.pkl": "373bf91a4fee7ead2b04b2a6490f21ba25803ecc32e402c9bd0f62b7cfaf14cd",
+    "models/caresense_xgboost.pkl": "4f2d5accd60e4c88b5b750c9b939cfbf30e13072740867e2d65ae3d11f7a5c88",
+    "models/logistic_regression_estimator.pkl": "935e134f42f2716c644e9f30cc4db72462211491bce46442440fd5dfa3a92817",
+    "models/random_forest_estimator.pkl": "0a55ddaf428958b9062a030f0aff3509de4befc46ce65c3e245636f1b7b0240e",
+    "models/xgboost_estimator.pkl": "086b9e8249b7f5a267e93601360284927c06b42ccf6cbb9fc7e6475ffb9359a1",
+    "models/caresense_xgboost.json": "84f3661234095afadfc34843470954de317d18da85f28e85a61aea9e3903bf84",
+    "artifacts/preprocessing_pipeline.pkl": "d7927ab8dceddad43ef837ecb5c757d7cea02a54cf243c9bace7dd91eadfcb18",
+    "artifacts/feature_names.json": "b9f638ac306d0a9b05d5f6dbaf271173c131429de8d9ce1b50138285dec2fcca",
+    "artifacts/feature_dictionary.json": "99b28dc9674ddf91e447c80cd119b8bcd7b61005b8c9513dafafda6ed92a7e53",
+    "artifacts/run_config.json": "6e89a3e375ace238275a2306e2a893b6a9f393bd5908d287a32498e71778b793",
+    "artifacts/model_metadata.json": "e9cf1ff10c9642d66467c3234f0ee8e87a23dfcca0e037bda12dfcaa532cb999",
+    "artifacts/threshold_config.json": "f7b5ebff6e0f88d11f341befc283579cdc2f0001ccf8e827a6a5215b300c4c88"
+  },
+  "core_source_hashes": {
+    "src/caresense/__init__.py": "439d3d0a8f9f53456489915b74f6949887518a1806fd5e1e17a9ecd594ade74d",
+    "src/caresense/calibration.py": "65a1aaef1ad33035cfbc34a0950d53c22fcd91ca34133a8750bca14edc63a0f3",
+    "src/caresense/explain.py": "38be2dd85fd6017726cf18bbae9af2e08b18e5564a9ce28c71ec042d55278bd3",
+    "src/caresense/features.py": "850749aa3775865eb5a2ccdf1fbacfb5f686ae9e2eb8c8df90832d1da7ee680b",
+    "src/caresense/predict.py": "f2f43ea1534042280b8ab20dcdf8c32aff90dfc93a8a839e7e127d3ddcc929b2",
+    "src/caresense/preprocessing.py": "19f9a0af2f083aa8be25e3c1c3bbeddebdc1caa6b58c0fa60c3e562a4c6e6b0e",
+    "src/caresense/risk.py": "7337e7e6c6d694da6a4d26cd8babe1d06ce519f107854e718b997554ec41173b",
+    "src/caresense/schema.py": "ad245086d1aa764fee64c9189b4f2e2e23d10b72e668a3c40a947a7f793ac2e3",
+    "src/caresense/simulation.py": "123edc4dfc4040dc32318488ef093ac38f6553800f63734652fe6cf40df963af",
+    "src/caresense/validation.py": "3ffaf7eaa15e3b8ec2d7a31f1ed54c95237fdd337a38b0d9cad3abd98a73c052",
+    "src/caresense/verify_inference.py": "352366581929db9d56fb7d3356de7bb0a3fee5a4c03ce3dbae351ae30ba9c3db",
+    "src/caresense/verify_api.py": "19d1277543b0bc2bfa895204d940088f6bdf8b648f301cda544c6bdc897848eb"
+  },
+  "api_packaging": "Optional history precondition retained; dashboard import and mount excluded; inference calls unchanged."
+}

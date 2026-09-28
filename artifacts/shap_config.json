@@ -1,0 +1,12 @@
+{
+  "explainer": "TreeExplainer",
+  "model_output": "raw",
+  "units": "uncalibrated log odds",
+  "feature_perturbation": "tree_path_dependent",
+  "background": "training tree path counts",
+  "global_sample_split": "validation_selection",
+  "sample_hours": 1000,
+  "seed": 2019,
+  "additivity_max_absolute_error": 5.7220458984375e-06,
+  "calibration_note": "SHAP sums to the underlying XGBoost margin; contributions do not sum to calibrated probability."
+}

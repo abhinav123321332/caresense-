@@ -1,0 +1,4704 @@
+{
+  "protocol": {
+    "seed": 2019,
+    "framing": "Supplied SepsisLabel, restricted to hours strictly before label-implied onset; first-row-positive and uncertain-transition records excluded",
+    "train_fraction": 0.7,
+    "validation_fraction": 0.15,
+    "test_fraction": 0.15,
+    "validation_roles": [
+      "selection",
+      "calibration",
+      "threshold"
+    ],
+    "max_training_hours": 160000,
+    "training_sampling": "uniform without replacement across eligible training hours, seed fixed before fitting; same rows for all models",
+    "evaluate_all_eligible_validation_test_hours": true,
+    "model_selection_metric": "average_precision",
+    "model_selection_tie_break": "first configuration in listed order",
+    "logistic_regression": {
+      "C": 1.0,
+      "max_iter": 1000,
+      "class_weight": "balanced",
+      "solver": "lbfgs"
+    },
+    "random_forest": {
+      "n_estimators": 120,
+      "max_depth": 12,
+      "min_samples_leaf": 20,
+      "max_features": "sqrt",
+      "class_weight": "balanced_subsample",
+      "n_jobs": 4
+    },
+    "xgboost_shared": {
+      "n_estimators": 250,
+      "learning_rate": 0.05,
+      "min_child_weight": 10,
+      "reg_lambda": 10,
+      "subsample": 0.8,
+      "colsample_bytree": 0.9,
+      "tree_method": "hist",
+      "max_bin": 128,
+      "n_jobs": 4,
+      "objective": "binary:logistic",
+      "eval_metric": "aucpr"
+    },
+    "xgboost_candidates": [
+      {
+        "max_depth": 3,
+        "positive_weight_policy": "none"
+      },
+      {
+        "max_depth": 4,
+        "positive_weight_policy": "none"
+      },
+      {
+        "max_depth": 3,
+        "positive_weight_policy": "sqrt_negative_over_positive"
+      }
+    ],
+    "calibration": "sigmoid of clipped raw-probability logit, separately fit for each model on validation/calibration",
+    "alternative_thresholds": {
+      "selected_precision": 0.2,
+      "selected_recall": 0.8,
+      "primary_research_threshold": "maximum F1 on validation/threshold, highest threshold resolves ties"
+    },
+    "prototype_thresholds": {
+      "watch_inclusive": 0.3,
+      "elevated_inclusive": 0.5,
+      "critical_exclusive": 0.75
+    },
+    "clinical_validation": false,
+    "configuration_status": "prespecified before model fitting"
+  },
+  "training": {
+    "dataset": "PhysioNet Challenge 2019 v1.0.0 training sets A+B",
+    "split": "train_sample",
+    "patients": 27449,
+    "hours": 160000,
+    "positive_hours": 1578,
+    "weighting": "Each eligible observed hour has equal evaluation weight; hours are correlated within patients",
+    "framing": "Supplied SepsisLabel on pre-onset hours only, six-hour label-implied onset framing; uncertain onsets excluded"
+  },
+  "models": {
+    "logistic_regression": {
+      "context": {
+        "dataset": "PhysioNet Challenge 2019 v1.0.0 training sets A+B",
+        "split": "test",
+        "patients": 5985,
+        "hours": 232838,
+        "positive_hours": 2235,
+        "weighting": "Each eligible observed hour has equal evaluation weight; hours are correlated within patients",
+        "framing": "Supplied SepsisLabel on pre-onset hours only, six-hour label-implied onset framing; uncertain onsets excluded"
+      },
+      "raw": {
+        "hours": 232838,
+        "positive_hours": 2235,
+        "prevalence": 0.009598948625224405,
+        "AUROC": 0.7931901132543848,
+        "PR_AUC_average_precision": 0.05972777369342526,
+        "Brier_score": 0.17630375196182532,
+        "calibration_bins": [
+          {
+            "lower": 0.0,
+            "upper": 0.1,
+            "n": 7473,
+            "mean_probability": 0.07394101509617089,
+            "observed_fraction": 0.0025424862839555735
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "n": 38101,
+            "mean_probability": 0.1574839319962316,
+            "observed_fraction": 0.002178420513897273
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "n": 53812,
+            "mean_probability": 0.24921691329830076,
+            "observed_fraction": 0.002694566267746971
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "n": 46325,
+            "mean_probability": 0.3478876052003131,
+            "observed_fraction": 0.004382083108472747
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "n": 33508,
+            "mean_probability": 0.4464697226707657,
+            "observed_fraction": 0.007580279336277904
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "n": 21430,
+            "mean_probability": 0.5463703423446437,
+            "observed_fraction": 0.012552496500233318
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "n": 13526,
+            "mean_probability": 0.6458237695919591,
+            "observed_fraction": 0.019887623835575928
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "n": 8550,
+            "mean_probability": 0.7469514122553039,
+            "observed_fraction": 0.034035087719298245
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "n": 5843,
+            "mean_probability": 0.8468393760961395,
+            "observed_fraction": 0.05425295225055622
+          },
+          {
+            "lower": 0.9,
+            "upper": 1.0,
+            "n": 4270,
+            "mean_probability": 0.9487394864581508,
+            "observed_fraction": 0.09016393442622951
+          }
+        ],
+        "expected_calibration_error_10_bins": 0.3634917033121837,
+        "prototype_thresholds": [
+          {
+            "threshold": 0.3,
+            "comparison": ">=",
+            "precision": 0.014896741899709258,
+            "recall": 0.8894854586129753,
+            "sensitivity": 0.8894854586129753,
+            "specificity": 0.4299120132869043,
+            "F1": 0.029302733496945177,
+            "confusion_matrix": {
+              "TN": 99139,
+              "FP": 131464,
+              "FN": 247,
+              "TP": 1988
+            }
+          },
+          {
+            "threshold": 0.5,
+            "comparison": ">=",
+            "precision": 0.02855331132620899,
+            "recall": 0.6850111856823267,
+            "sensitivity": 0.6850111856823267,
+            "specificity": 0.7741226263318344,
+            "F1": 0.05482149890786694,
+            "confusion_matrix": {
+              "TN": 178515,
+              "FP": 52088,
+              "FN": 704,
+              "TP": 1531
+            }
+          },
+          {
+            "threshold": 0.75,
+            "comparison": ">",
+            "precision": 0.0611764705882353,
+            "recall": 0.3838926174496644,
+            "sensitivity": 0.3838926174496644,
+            "specificity": 0.9429018703139161,
+            "F1": 0.1055350553505535,
+            "confusion_matrix": {
+              "TN": 217436,
+              "FP": 13167,
+              "FN": 1377,
+              "TP": 858
+            }
+          }
+        ]
+      },
+      "calibrated": {
+        "hours": 232838,
+        "positive_hours": 2235,
+        "prevalence": 0.009598948625224405,
+        "AUROC": 0.7931901132543848,
+        "PR_AUC_average_precision": 0.05972777369342526,
+        "Brier_score": 0.009311185853611624,
+        "calibration_bins": [
+          {
+            "lower": 0.0,
+            "upper": 0.1,
+            "n": 232269,
+            "mean_probability": 0.008461556849220562,
+            "observed_fraction": 0.009209149735866604
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "n": 514,
+            "mean_probability": 0.1335871455197211,
+            "observed_fraction": 0.15369649805447472
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "n": 43,
+            "mean_probability": 0.23425274855005843,
+            "observed_fraction": 0.37209302325581395
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "n": 8,
+            "mean_probability": 0.34655003841008025,
+            "observed_fraction": 0.125
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "n": 1,
+            "mean_probability": 0.4136102019751886,
+            "observed_fraction": 0.0
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.9,
+            "upper": 1.0,
+            "n": 3,
+            "mean_probability": 0.9906124449518803,
+            "observed_fraction": 0.0
+          }
+        ],
+        "expected_calibration_error_10_bins": 0.0008377663398917345,
+        "prototype_thresholds": [
+          {
+            "threshold": 0.3,
+            "comparison": ">=",
+            "precision": 0.08333333333333333,
+            "recall": 0.00044742729306487697,
+            "sensitivity": 0.00044742729306487697,
+            "specificity": 0.9999522989726933,
+            "F1": 0.0008900756564307966,
+            "confusion_matrix": {
+              "TN": 230592,
+              "FP": 11,
+              "FN": 2234,
+              "TP": 1
+            }
+          },
+          {
+            "threshold": 0.5,
+            "comparison": ">=",
+            "precision": 0.0,
+            "recall": 0.0,
+            "sensitivity": 0.0,
+            "specificity": 0.9999869906289164,
+            "F1": 0.0,
+            "confusion_matrix": {
+              "TN": 230600,
+              "FP": 3,
+              "FN": 2235,
+              "TP": 0
+            }
+          },
+          {
+            "threshold": 0.75,
+            "comparison": ">",
+            "precision": 0.0,
+            "recall": 0.0,
+            "sensitivity": 0.0,
+            "specificity": 0.9999869906289164,
+            "F1": 0.0,
+            "confusion_matrix": {
+              "TN": 230600,
+              "FP": 3,
+              "FN": 2235,
+              "TP": 0
+            }
+          }
+        ],
+        "research_operating_point": {
+          "threshold": 0.055974635190600114,
+          "comparison": ">=",
+          "precision": 0.11472697186982901,
+          "recall": 0.09306487695749441,
+          "sensitivity": 0.09306487695749441,
+          "specificity": 0.993039986470254,
+          "F1": 0.10276679841897234,
+          "confusion_matrix": {
+            "TN": 228998,
+            "FP": 1605,
+            "FN": 2027,
+            "TP": 208
+          }
+        },
+        "recall_at_target_precision_frozen_validation_threshold": {
+          "threshold": 0.14815445566034624,
+          "comparison": ">=",
+          "precision": 0.23267326732673269,
+          "recall": 0.021029082774049218,
+          "sensitivity": 0.021029082774049218,
+          "specificity": 0.9993278491606787,
+          "F1": 0.03857201477226098,
+          "confusion_matrix": {
+            "TN": 230448,
+            "FP": 155,
+            "FN": 2188,
+            "TP": 47
+          }
+        },
+        "precision_at_target_recall_frozen_validation_threshold": {
+          "threshold": 0.008132787018192793,
+          "comparison": ">=",
+          "precision": 0.02186805511461045,
+          "recall": 0.7704697986577181,
+          "sensitivity": 0.7704697986577181,
+          "specificity": 0.6659930703416694,
+          "F1": 0.04252901951099037,
+          "confusion_matrix": {
+            "TN": 153580,
+            "FP": 77023,
+            "FN": 513,
+            "TP": 1722
+          }
+        }
+      },
+      "lead_time": {
+        "watch": {
+          "threshold": 0.3,
+          "comparison": ">=",
+          "eligible_septic_patients": 374,
+          "septic_patients_with_any_preonset_alert": 3,
+          "septic_patients_without_alert": 371,
+          "patients_alerted_in_1_to_12h_window": 2,
+          "patients_alerted_in_1_to_6h_window": 1,
+          "patients_alerted_in_6_to_12h_window": 1,
+          "patients_alerted_more_than_12h_early": 2,
+          "first_preonset_alert_lead_distribution": {
+            "n": 3,
+            "median": 40.0,
+            "p25": 22.5,
+            "p75": 59.0,
+            "min": 5.0,
+            "max": 78.0
+          },
+          "first_alert_within_1_to_12h_distribution": {
+            "n": 2,
+            "median": 7.0,
+            "p25": 6.0,
+            "p75": 8.0,
+            "min": 5.0,
+            "max": 9.0
+          },
+          "nonseptic_patients": 5611,
+          "nonseptic_patients_with_any_alert": 4,
+          "nonseptic_ever_alert_fraction": 0.0007128854036713598,
+          "nonseptic_alert_hours_per_100_patient_hours": 0.003838255896520621,
+          "empty_clinical_prefix_alerts_withheld": true,
+          "interpretation": "When clinical-history availability is supplied, empty prefixes cannot alert. Retrospective label-implied onset; conditional lead-time summaries omit misses. Window detections are experimental, not proof of clinical usefulness. No cooldown; repeated hourly alerts counted for burden."
+        },
+        "elevated": {
+          "threshold": 0.5,
+          "comparison": ">=",
+          "eligible_septic_patients": 374,
+          "septic_patients_with_any_preonset_alert": 0,
+          "septic_patients_without_alert": 374,
+          "patients_alerted_in_1_to_12h_window": 0,
+          "patients_alerted_in_1_to_6h_window": 0,
+          "patients_alerted_in_6_to_12h_window": 0,
+          "patients_alerted_more_than_12h_early": 0,
+          "first_preonset_alert_lead_distribution": {
+            "n": 0,
+            "median": null,
+            "p25": null,
+            "p75": null,
+            "min": null,
+            "max": null
+          },
+          "first_alert_within_1_to_12h_distribution": {
+            "n": 0,
+            "median": null,
+            "p25": null,
+            "p75": null,
+            "min": null,
+            "max": null
+          },
+          "nonseptic_patients": 5611,
+          "nonseptic_patients_with_any_alert": 3,
+          "nonseptic_ever_alert_fraction": 0.0005346640527535199,
+          "nonseptic_alert_hours_per_100_patient_hours": 0.0014393459611952329,
+          "empty_clinical_prefix_alerts_withheld": true,
+          "interpretation": "When clinical-history availability is supplied, empty prefixes cannot alert. Retrospective label-implied onset; conditional lead-time summaries omit misses. Window detections are experimental, not proof of clinical usefulness. No cooldown; repeated hourly alerts counted for burden."
+        },
+        "critical": {
+          "threshold": 0.75,
+          "comparison": ">",
+          "eligible_septic_patients": 374,
+          "septic_patients_with_any_preonset_alert": 0,
+          "septic_patients_without_alert": 374,
+          "patients_alerted_in_1_to_12h_window": 0,
+          "patients_alerted_in_1_to_6h_window": 0,
+          "patients_alerted_in_6_to_12h_window": 0,
+          "patients_alerted_more_than_12h_early": 0,
+          "first_preonset_alert_lead_distribution": {
+            "n": 0,
+            "median": null,
+            "p25": null,
+            "p75": null,
+            "min": null,
+            "max": null
+          },
+          "first_alert_within_1_to_12h_distribution": {
+            "n": 0,
+            "median": null,
+            "p25": null,
+            "p75": null,
+            "min": null,
+            "max": null
+          },
+          "nonseptic_patients": 5611,
+          "nonseptic_patients_with_any_alert": 3,
+          "nonseptic_ever_alert_fraction": 0.0005346640527535199,
+          "nonseptic_alert_hours_per_100_patient_hours": 0.0014393459611952329,
+          "empty_clinical_prefix_alerts_withheld": true,
+          "interpretation": "When clinical-history availability is supplied, empty prefixes cannot alert. Retrospective label-implied onset; conditional lead-time summaries omit misses. Window detections are experimental, not proof of clinical usefulness. No cooldown; repeated hourly alerts counted for burden."
+        },
+        "research_max_f1": {
+          "threshold": 0.055974635190600114,
+          "comparison": ">=",
+          "eligible_septic_patients": 374,
+          "septic_patients_with_any_preonset_alert": 72,
+          "septic_patients_without_alert": 302,
+          "patients_alerted_in_1_to_12h_window": 59,
+          "patients_alerted_in_1_to_6h_window": 54,
+          "patients_alerted_in_6_to_12h_window": 45,
+          "patients_alerted_more_than_12h_early": 52,
+          "first_preonset_alert_lead_distribution": {
+            "n": 72,
+            "median": 37.0,
+            "p25": 9.75,
+            "p75": 69.75,
+            "min": 1.0,
+            "max": 230.0
+          },
+          "first_alert_within_1_to_12h_distribution": {
+            "n": 59,
+            "median": 11.0,
+            "p25": 6.0,
+            "p75": 12.0,
+            "min": 1.0,
+            "max": 12.0
+          },
+          "nonseptic_patients": 5611,
+          "nonseptic_patients_with_any_alert": 80,
+          "nonseptic_ever_alert_fraction": 0.014257708073427196,
+          "nonseptic_alert_hours_per_100_patient_hours": 0.13817721227474236,
+          "empty_clinical_prefix_alerts_withheld": true,
+          "interpretation": "When clinical-history availability is supplied, empty prefixes cannot alert. Retrospective label-implied onset; conditional lead-time summaries omit misses. Window detections are experimental, not proof of clinical usefulness. No cooldown; repeated hourly alerts counted for burden."
+        }
+      },
+      "inference_coverage": {
+        "eligible_model_hours": 232838,
+        "hours_with_clinical_history": 227846,
+        "withheld_empty_history_hours": 4992,
+        "coverage_fraction": 0.9785602006545323,
+        "policy": "Model discrimination uses all eligible hours. The inference interface withholds empty clinical prefixes; lead-time alerts below apply that same withholding policy."
+      },
+      "calibrated_on_inference_available_hours": {
+        "hours": 227846,
+        "positive_hours": 2235,
+        "prevalence": 0.009809257129815752,
+        "AUROC": 0.7894188287124885,
+        "PR_AUC_average_precision": 0.05973792561017366,
+        "Brier_score": 0.009514826613370192,
+        "calibration_bins": [
+          {
+            "lower": 0.0,
+            "upper": 0.1,
+            "n": 227277,
+            "mean_probability": 0.008559693361166874,
+            "observed_fraction": 0.009411423065246373
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "n": 514,
+            "mean_probability": 0.1335871455197211,
+            "observed_fraction": 0.15369649805447472
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "n": 43,
+            "mean_probability": 0.23425274855005843,
+            "observed_fraction": 0.37209302325581395
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "n": 8,
+            "mean_probability": 0.34655003841008025,
+            "observed_fraction": 0.125
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "n": 1,
+            "mean_probability": 0.4136102019751886,
+            "observed_fraction": 0.0
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.9,
+            "upper": 1.0,
+            "n": 3,
+            "mean_probability": 0.9906124449518803,
+            "observed_fraction": 0.0
+          }
+        ],
+        "expected_calibration_error_10_bins": 0.0009436187548317658,
+        "prototype_thresholds": [
+          {
+            "threshold": 0.3,
+            "comparison": ">=",
+            "precision": 0.08333333333333333,
+            "recall": 0.00044742729306487697,
+            "sensitivity": 0.00044742729306487697,
+            "specificity": 0.9999512435120628,
+            "F1": 0.0008900756564307966,
+            "confusion_matrix": {
+              "TN": 225600,
+              "FP": 11,
+              "FN": 2234,
+              "TP": 1
+            }
+          },
+          {
+            "threshold": 0.5,
+            "comparison": ">=",
+            "precision": 0.0,
+            "recall": 0.0,
+            "sensitivity": 0.0,
+            "specificity": 0.9999867027760171,
+            "F1": 0.0,
+            "confusion_matrix": {
+              "TN": 225608,
+              "FP": 3,
+              "FN": 2235,
+              "TP": 0
+            }
+          },
+          {
+            "threshold": 0.75,
+            "comparison": ">",
+            "precision": 0.0,
+            "recall": 0.0,
+            "sensitivity": 0.0,
+            "specificity": 0.9999867027760171,
+            "F1": 0.0,
+            "confusion_matrix": {
+              "TN": 225608,
+              "FP": 3,
+              "FN": 2235,
+              "TP": 0
+            }
+          }
+        ],
+        "research_operating_point": {
+          "threshold": 0.055974635190600114,
+          "comparison": ">=",
+          "precision": 0.11472697186982901,
+          "recall": 0.09306487695749441,
+          "sensitivity": 0.09306487695749441,
+          "specificity": 0.9928859851691628,
+          "F1": 0.10276679841897234,
+          "confusion_matrix": {
+            "TN": 224006,
+            "FP": 1605,
+            "FN": 2027,
+            "TP": 208
+          }
+        },
+        "recall_at_target_precision_frozen_validation_threshold": {
+          "threshold": 0.14815445566034624,
+          "comparison": ">=",
+          "precision": 0.23267326732673269,
+          "recall": 0.021029082774049218,
+          "sensitivity": 0.021029082774049218,
+          "specificity": 0.9993129767608849,
+          "F1": 0.03857201477226098,
+          "confusion_matrix": {
+            "TN": 225456,
+            "FP": 155,
+            "FN": 2188,
+            "TP": 47
+          }
+        },
+        "precision_at_target_recall_frozen_validation_threshold": {
+          "threshold": 0.008132787018192793,
+          "comparison": ">=",
+          "precision": 0.021869443738887478,
+          "recall": 0.7704697986577181,
+          "sensitivity": 0.7704697986577181,
+          "specificity": 0.6586248010956912,
+          "F1": 0.042531645569620254,
+          "confusion_matrix": {
+            "TN": 148593,
+            "FP": 77018,
+            "FN": 513,
+            "TP": 1722
+          }
+        }
+      },
+      "clinical_score_proxies": {
+        "qsofa_2_component_proxy": {
+          "status": "incomplete_research_proxy",
+          "source_url": "https://jamanetwork.com/journals/jama/fullarticle/2492881",
+          "coverage": {
+            "total_hours": 232838,
+            "available_hours": 186045,
+            "unavailable_hours": 46793,
+            "available_fraction": 0.7990319449574382,
+            "positive_hours": 1749,
+            "prevalence": 0.009400951382729984,
+            "available_by_component": {
+              "Resp": 196400,
+              "SBP": 199039
+            }
+          },
+          "proxy": {
+            "AUROC": 0.5814499063368191,
+            "PR_AUC_average_precision": 0.011829258447489515
+          },
+          "model_same_subset": {
+            "AUROC": 0.7903060224195482,
+            "PR_AUC_average_precision": 0.05731077066564264
+          },
+          "exploratory_threshold_metrics": {
+            "threshold": 2,
+            "comparison": ">=",
+            "precision": 0.018376068376068377,
+            "recall": 0.07375643224699828,
+            "sensitivity": 0.07375643224699828,
+            "specificity": 0.9626090636801667,
+            "F1": 0.02942182689018132,
+            "confusion_matrix": {
+              "TN": 177405,
+              "FP": 6891,
+              "FN": 1620,
+              "TP": 129
+            }
+          },
+          "exploratory_threshold": 2,
+          "clinically_validated": false,
+          "availability_policy": "All required current values must be observed and within documented mechanical bounds; no carry or imputation.",
+          "missing_clinical_components": [
+            "altered mentation"
+          ],
+          "interpretation": "Incomplete score versus model on identical complete-case hours; retrospective discrimination is not clinical validation."
+        },
+        "news2_scale1_vitals_subtotal": {
+          "status": "incomplete_research_proxy",
+          "source_url": "https://www.rcp.ac.uk/media/alxev00t/news2-chart-1_the-news-scoring-system_0_0.pdf",
+          "coverage": {
+            "total_hours": 232838,
+            "available_hours": 70668,
+            "unavailable_hours": 162170,
+            "available_fraction": 0.30350715948427665,
+            "positive_hours": 651,
+            "prevalence": 0.009212090337918153,
+            "available_by_component": {
+              "Resp": 196400,
+              "O2Sat": 202169,
+              "SBP": 199039,
+              "HR": 209639,
+              "Temp": 78929
+            }
+          },
+          "proxy": {
+            "AUROC": 0.6346638726118456,
+            "PR_AUC_average_precision": 0.015579096527153212
+          },
+          "model_same_subset": {
+            "AUROC": 0.7916086518992633,
+            "PR_AUC_average_precision": 0.05354002150589884
+          },
+          "exploratory_threshold_metrics": {
+            "threshold": 5,
+            "comparison": ">=",
+            "precision": 0.019947678221059514,
+            "recall": 0.28110599078341014,
+            "sensitivity": 0.28110599078341014,
+            "specificity": 0.871588328548781,
+            "F1": 0.037251908396946566,
+            "confusion_matrix": {
+              "TN": 61026,
+              "FP": 8991,
+              "FN": 468,
+              "TP": 183
+            }
+          },
+          "exploratory_threshold": 5,
+          "clinically_validated": false,
+          "availability_policy": "All required current values must be observed and within documented mechanical bounds; no carry or imputation.",
+          "missing_clinical_components": [
+            "consciousness/new confusion",
+            "oxygen-treatment status",
+            "prescribed saturation-scale choice"
+          ],
+          "interpretation": "Incomplete score versus model on identical complete-case hours; retrospective discrimination is not clinical validation.",
+          "fractional_value_bin_extension": {
+            "Resp": "<=8:3; >8..11:1; >11..20:0; >20..24:2; >24:3",
+            "O2Sat": "<=91:3; >91..93:2; >93..95:1; >95:0",
+            "SBP": "<=90:3; >90..100:2; >100..110:1; >110..<220:0; >=220:3",
+            "HR": "<=40:3; >40..50:1; >50..90:0; >90..110:1; >110..130:2; >130:3",
+            "Temp": "<=35:3; >35..36:1; >36..38:0; >38..39:1; >39:2"
+          }
+        }
+      }
+    },
+    "random_forest": {
+      "context": {
+        "dataset": "PhysioNet Challenge 2019 v1.0.0 training sets A+B",
+        "split": "test",
+        "patients": 5985,
+        "hours": 232838,
+        "positive_hours": 2235,
+        "weighting": "Each eligible observed hour has equal evaluation weight; hours are correlated within patients",
+        "framing": "Supplied SepsisLabel on pre-onset hours only, six-hour label-implied onset framing; uncertain onsets excluded"
+      },
+      "raw": {
+        "hours": 232838,
+        "positive_hours": 2235,
+        "prevalence": 0.009598948625224405,
+        "AUROC": 0.7907655312512498,
+        "PR_AUC_average_precision": 0.0506899506854659,
+        "Brier_score": 0.06555012313106176,
+        "calibration_bins": [
+          {
+            "lower": 0.0,
+            "upper": 0.1,
+            "n": 9607,
+            "mean_probability": 0.07732406529148456,
+            "observed_fraction": 0.00031227230144686166
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "n": 91873,
+            "mean_probability": 0.16229251970796887,
+            "observed_fraction": 0.0026776093085019536
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "n": 89923,
+            "mean_probability": 0.24244724521968225,
+            "observed_fraction": 0.007128320896767234
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "n": 26658,
+            "mean_probability": 0.33875401750513434,
+            "observed_fraction": 0.017705754370170305
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "n": 8691,
+            "mean_probability": 0.44543573811491805,
+            "observed_fraction": 0.04867103900586814
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "n": 4731,
+            "mean_probability": 0.5429973902352188,
+            "observed_fraction": 0.06658211794546608
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "n": 1238,
+            "mean_probability": 0.6352584189441814,
+            "observed_fraction": 0.09289176090468497
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "n": 116,
+            "mean_probability": 0.7271235588679403,
+            "observed_fraction": 0.16379310344827586
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "n": 1,
+            "mean_probability": 0.8004954837132878,
+            "observed_fraction": 1.0
+          },
+          {
+            "lower": 0.9,
+            "upper": 1.0,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          }
+        ],
+        "expected_calibration_error_10_bins": 0.22145199495822981,
+        "prototype_thresholds": [
+          {
+            "threshold": 0.3,
+            "comparison": ">=",
+            "precision": 0.032460480270302884,
+            "recall": 0.6017897091722595,
+            "sensitivity": 0.6017897091722595,
+            "specificity": 0.8261514377523276,
+            "F1": 0.06159835127089535,
+            "confusion_matrix": {
+              "TN": 190513,
+              "FP": 40090,
+              "FN": 890,
+              "TP": 1345
+            }
+          },
+          {
+            "threshold": 0.5,
+            "comparison": ">=",
+            "precision": 0.07394019060138021,
+            "recall": 0.20134228187919462,
+            "sensitivity": 0.20134228187919462,
+            "specificity": 0.9755597281908734,
+            "F1": 0.10816007691383248,
+            "confusion_matrix": {
+              "TN": 224967,
+              "FP": 5636,
+              "FN": 1785,
+              "TP": 450
+            }
+          },
+          {
+            "threshold": 0.75,
+            "comparison": ">",
+            "precision": 0.17647058823529413,
+            "recall": 0.0013422818791946308,
+            "sensitivity": 0.0013422818791946308,
+            "specificity": 0.9999392896016097,
+            "F1": 0.0026642984014209592,
+            "confusion_matrix": {
+              "TN": 230589,
+              "FP": 14,
+              "FN": 2232,
+              "TP": 3
+            }
+          }
+        ]
+      },
+      "calibrated": {
+        "hours": 232838,
+        "positive_hours": 2235,
+        "prevalence": 0.009598948625224405,
+        "AUROC": 0.7907655312512499,
+        "PR_AUC_average_precision": 0.0506899506854659,
+        "Brier_score": 0.009304924313896649,
+        "calibration_bins": [
+          {
+            "lower": 0.0,
+            "upper": 0.1,
+            "n": 231914,
+            "mean_probability": 0.008889382344307285,
+            "observed_fraction": 0.009210310718628456
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "n": 868,
+            "mean_probability": 0.12664891261351077,
+            "observed_fraction": 0.10138248847926268
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "n": 53,
+            "mean_probability": 0.2267905039962292,
+            "observed_fraction": 0.16981132075471697
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "n": 3,
+            "mean_probability": 0.31877428812821845,
+            "observed_fraction": 0.6666666666666666
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.9,
+            "upper": 1.0,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          }
+        ],
+        "expected_calibration_error_10_bins": 0.0004312982116246614,
+        "prototype_thresholds": [
+          {
+            "threshold": 0.3,
+            "comparison": ">=",
+            "precision": 0.6666666666666666,
+            "recall": 0.0008948545861297539,
+            "sensitivity": 0.0008948545861297539,
+            "specificity": 0.9999956635429721,
+            "F1": 0.0017873100983020554,
+            "confusion_matrix": {
+              "TN": 230602,
+              "FP": 1,
+              "FN": 2233,
+              "TP": 2
+            }
+          },
+          {
+            "threshold": 0.5,
+            "comparison": ">=",
+            "precision": 0.0,
+            "recall": 0.0,
+            "sensitivity": 0.0,
+            "specificity": 1.0,
+            "F1": 0.0,
+            "confusion_matrix": {
+              "TN": 230603,
+              "FP": 0,
+              "FN": 2235,
+              "TP": 0
+            }
+          },
+          {
+            "threshold": 0.75,
+            "comparison": ">",
+            "precision": 0.0,
+            "recall": 0.0,
+            "sensitivity": 0.0,
+            "specificity": 1.0,
+            "F1": 0.0,
+            "confusion_matrix": {
+              "TN": 230603,
+              "FP": 0,
+              "FN": 2235,
+              "TP": 0
+            }
+          }
+        ],
+        "research_operating_point": {
+          "threshold": 0.07798597287751201,
+          "comparison": ">=",
+          "precision": 0.09518987341772152,
+          "recall": 0.08411633109619687,
+          "sensitivity": 0.08411633109619687,
+          "specificity": 0.9922507512911801,
+          "F1": 0.08931116389548693,
+          "confusion_matrix": {
+            "TN": 228816,
+            "FP": 1787,
+            "FN": 2047,
+            "TP": 188
+          }
+        },
+        "recall_at_target_precision_frozen_validation_threshold": {
+          "threshold": 0.13286617570274725,
+          "comparison": ">=",
+          "precision": 0.13056379821958458,
+          "recall": 0.019686800894854587,
+          "sensitivity": 0.019686800894854587,
+          "specificity": 0.9987294180908314,
+          "F1": 0.03421461897356143,
+          "confusion_matrix": {
+            "TN": 230310,
+            "FP": 293,
+            "FN": 2191,
+            "TP": 44
+          }
+        },
+        "precision_at_target_recall_frozen_validation_threshold": {
+          "threshold": 0.006506212592015526,
+          "comparison": ">=",
+          "precision": 0.01887119997549195,
+          "recall": 0.8268456375838926,
+          "sensitivity": 0.8268456375838926,
+          "specificity": 0.5833575452184057,
+          "F1": 0.03690022164094167,
+          "confusion_matrix": {
+            "TN": 134524,
+            "FP": 96079,
+            "FN": 387,
+            "TP": 1848
+          }
+        }
+      },
+      "lead_time": {
+        "watch": {
+          "threshold": 0.3,
+          "comparison": ">=",
+          "eligible_septic_patients": 374,
+          "septic_patients_with_any_preonset_alert": 3,
+          "septic_patients_without_alert": 371,
+          "patients_alerted_in_1_to_12h_window": 3,
+          "patients_alerted_in_1_to_6h_window": 2,
+          "patients_alerted_in_6_to_12h_window": 3,
+          "patients_alerted_more_than_12h_early": 0,
+          "first_preonset_alert_lead_distribution": {
+            "n": 3,
+            "median": 6.0,
+            "p25": 6.0,
+            "p75": 6.5,
+            "min": 6.0,
+            "max": 7.0
+          },
+          "first_alert_within_1_to_12h_distribution": {
+            "n": 3,
+            "median": 6.0,
+            "p25": 6.0,
+            "p75": 6.5,
+            "min": 6.0,
+            "max": 7.0
+          },
+          "nonseptic_patients": 5611,
+          "nonseptic_patients_with_any_alert": 0,
+          "nonseptic_ever_alert_fraction": 0.0,
+          "nonseptic_alert_hours_per_100_patient_hours": 0.0,
+          "empty_clinical_prefix_alerts_withheld": true,
+          "interpretation": "When clinical-history availability is supplied, empty prefixes cannot alert. Retrospective label-implied onset; conditional lead-time summaries omit misses. Window detections are experimental, not proof of clinical usefulness. No cooldown; repeated hourly alerts counted for burden."
+        },
+        "elevated": {
+          "threshold": 0.5,
+          "comparison": ">=",
+          "eligible_septic_patients": 374,
+          "septic_patients_with_any_preonset_alert": 0,
+          "septic_patients_without_alert": 374,
+          "patients_alerted_in_1_to_12h_window": 0,
+          "patients_alerted_in_1_to_6h_window": 0,
+          "patients_alerted_in_6_to_12h_window": 0,
+          "patients_alerted_more_than_12h_early": 0,
+          "first_preonset_alert_lead_distribution": {
+            "n": 0,
+            "median": null,
+            "p25": null,
+            "p75": null,
+            "min": null,
+            "max": null
+          },
+          "first_alert_within_1_to_12h_distribution": {
+            "n": 0,
+            "median": null,
+            "p25": null,
+            "p75": null,
+            "min": null,
+            "max": null
+          },
+          "nonseptic_patients": 5611,
+          "nonseptic_patients_with_any_alert": 0,
+          "nonseptic_ever_alert_fraction": 0.0,
+          "nonseptic_alert_hours_per_100_patient_hours": 0.0,
+          "empty_clinical_prefix_alerts_withheld": true,
+          "interpretation": "When clinical-history availability is supplied, empty prefixes cannot alert. Retrospective label-implied onset; conditional lead-time summaries omit misses. Window detections are experimental, not proof of clinical usefulness. No cooldown; repeated hourly alerts counted for burden."
+        },
+        "critical": {
+          "threshold": 0.75,
+          "comparison": ">",
+          "eligible_septic_patients": 374,
+          "septic_patients_with_any_preonset_alert": 0,
+          "septic_patients_without_alert": 374,
+          "patients_alerted_in_1_to_12h_window": 0,
+          "patients_alerted_in_1_to_6h_window": 0,
+          "patients_alerted_in_6_to_12h_window": 0,
+          "patients_alerted_more_than_12h_early": 0,
+          "first_preonset_alert_lead_distribution": {
+            "n": 0,
+            "median": null,
+            "p25": null,
+            "p75": null,
+            "min": null,
+            "max": null
+          },
+          "first_alert_within_1_to_12h_distribution": {
+            "n": 0,
+            "median": null,
+            "p25": null,
+            "p75": null,
+            "min": null,
+            "max": null
+          },
+          "nonseptic_patients": 5611,
+          "nonseptic_patients_with_any_alert": 0,
+          "nonseptic_ever_alert_fraction": 0.0,
+          "nonseptic_alert_hours_per_100_patient_hours": 0.0,
+          "empty_clinical_prefix_alerts_withheld": true,
+          "interpretation": "When clinical-history availability is supplied, empty prefixes cannot alert. Retrospective label-implied onset; conditional lead-time summaries omit misses. Window detections are experimental, not proof of clinical usefulness. No cooldown; repeated hourly alerts counted for burden."
+        },
+        "research_max_f1": {
+          "threshold": 0.07798597287751201,
+          "comparison": ">=",
+          "eligible_septic_patients": 374,
+          "septic_patients_with_any_preonset_alert": 100,
+          "septic_patients_without_alert": 274,
+          "patients_alerted_in_1_to_12h_window": 77,
+          "patients_alerted_in_1_to_6h_window": 67,
+          "patients_alerted_in_6_to_12h_window": 54,
+          "patients_alerted_more_than_12h_early": 79,
+          "first_preonset_alert_lead_distribution": {
+            "n": 100,
+            "median": 35.0,
+            "p25": 15.75,
+            "p75": 85.25,
+            "min": 1.0,
+            "max": 243.0
+          },
+          "first_alert_within_1_to_12h_distribution": {
+            "n": 77,
+            "median": 10.0,
+            "p25": 5.0,
+            "p75": 12.0,
+            "min": 1.0,
+            "max": 12.0
+          },
+          "nonseptic_patients": 5611,
+          "nonseptic_patients_with_any_alert": 27,
+          "nonseptic_ever_alert_fraction": 0.004811976474781679,
+          "nonseptic_alert_hours_per_100_patient_hours": 0.04605907075824745,
+          "empty_clinical_prefix_alerts_withheld": true,
+          "interpretation": "When clinical-history availability is supplied, empty prefixes cannot alert. Retrospective label-implied onset; conditional lead-time summaries omit misses. Window detections are experimental, not proof of clinical usefulness. No cooldown; repeated hourly alerts counted for burden."
+        }
+      },
+      "inference_coverage": {
+        "eligible_model_hours": 232838,
+        "hours_with_clinical_history": 227846,
+        "withheld_empty_history_hours": 4992,
+        "coverage_fraction": 0.9785602006545323,
+        "policy": "Model discrimination uses all eligible hours. The inference interface withholds empty clinical prefixes; lead-time alerts below apply that same withholding policy."
+      },
+      "calibrated_on_inference_available_hours": {
+        "hours": 227846,
+        "positive_hours": 2235,
+        "prevalence": 0.009809257129815752,
+        "AUROC": 0.7861358918580503,
+        "PR_AUC_average_precision": 0.05068995072498928,
+        "Brier_score": 0.009508780873630926,
+        "calibration_bins": [
+          {
+            "lower": 0.0,
+            "upper": 0.1,
+            "n": 226922,
+            "mean_probability": 0.009070158390756911,
+            "observed_fraction": 0.009412926027445555
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "n": 868,
+            "mean_probability": 0.12664891261351077,
+            "observed_fraction": 0.10138248847926268
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "n": 53,
+            "mean_probability": 0.2267905039962292,
+            "observed_fraction": 0.16981132075471697
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "n": 3,
+            "mean_probability": 0.31877428812821845,
+            "observed_fraction": 0.6666666666666666
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.9,
+            "upper": 1.0,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          }
+        ],
+        "expected_calibration_error_10_bins": 0.0004554670595428632,
+        "prototype_thresholds": [
+          {
+            "threshold": 0.3,
+            "comparison": ">=",
+            "precision": 0.6666666666666666,
+            "recall": 0.0008948545861297539,
+            "sensitivity": 0.0008948545861297539,
+            "specificity": 0.9999955675920057,
+            "F1": 0.0017873100983020554,
+            "confusion_matrix": {
+              "TN": 225610,
+              "FP": 1,
+              "FN": 2233,
+              "TP": 2
+            }
+          },
+          {
+            "threshold": 0.5,
+            "comparison": ">=",
+            "precision": 0.0,
+            "recall": 0.0,
+            "sensitivity": 0.0,
+            "specificity": 1.0,
+            "F1": 0.0,
+            "confusion_matrix": {
+              "TN": 225611,
+              "FP": 0,
+              "FN": 2235,
+              "TP": 0
+            }
+          },
+          {
+            "threshold": 0.75,
+            "comparison": ">",
+            "precision": 0.0,
+            "recall": 0.0,
+            "sensitivity": 0.0,
+            "specificity": 1.0,
+            "F1": 0.0,
+            "confusion_matrix": {
+              "TN": 225611,
+              "FP": 0,
+              "FN": 2235,
+              "TP": 0
+            }
+          }
+        ],
+        "research_operating_point": {
+          "threshold": 0.07798597287751201,
+          "comparison": ">=",
+          "precision": 0.09518987341772152,
+          "recall": 0.08411633109619687,
+          "sensitivity": 0.08411633109619687,
+          "specificity": 0.9920792869142019,
+          "F1": 0.08931116389548693,
+          "confusion_matrix": {
+            "TN": 223824,
+            "FP": 1787,
+            "FN": 2047,
+            "TP": 188
+          }
+        },
+        "recall_at_target_precision_frozen_validation_threshold": {
+          "threshold": 0.13286617570274725,
+          "comparison": ">=",
+          "precision": 0.13056379821958458,
+          "recall": 0.019686800894854587,
+          "sensitivity": 0.019686800894854587,
+          "specificity": 0.9987013044576727,
+          "F1": 0.03421461897356143,
+          "confusion_matrix": {
+            "TN": 225318,
+            "FP": 293,
+            "FN": 2191,
+            "TP": 44
+          }
+        },
+        "precision_at_target_recall_frozen_validation_threshold": {
+          "threshold": 0.006506212592015526,
+          "comparison": ">=",
+          "precision": 0.01887119997549195,
+          "recall": 0.8268456375838926,
+          "sensitivity": 0.8268456375838926,
+          "specificity": 0.5741386723165094,
+          "F1": 0.03690022164094167,
+          "confusion_matrix": {
+            "TN": 129532,
+            "FP": 96079,
+            "FN": 387,
+            "TP": 1848
+          }
+        }
+      },
+      "clinical_score_proxies": {
+        "qsofa_2_component_proxy": {
+          "status": "incomplete_research_proxy",
+          "source_url": "https://jamanetwork.com/journals/jama/fullarticle/2492881",
+          "coverage": {
+            "total_hours": 232838,
+            "available_hours": 186045,
+            "unavailable_hours": 46793,
+            "available_fraction": 0.7990319449574382,
+            "positive_hours": 1749,
+            "prevalence": 0.009400951382729984,
+            "available_by_component": {
+              "Resp": 196400,
+              "SBP": 199039
+            }
+          },
+          "proxy": {
+            "AUROC": 0.5814499063368191,
+            "PR_AUC_average_precision": 0.011829258447489515
+          },
+          "model_same_subset": {
+            "AUROC": 0.7836096655905397,
+            "PR_AUC_average_precision": 0.04750586387036248
+          },
+          "exploratory_threshold_metrics": {
+            "threshold": 2,
+            "comparison": ">=",
+            "precision": 0.018376068376068377,
+            "recall": 0.07375643224699828,
+            "sensitivity": 0.07375643224699828,
+            "specificity": 0.9626090636801667,
+            "F1": 0.02942182689018132,
+            "confusion_matrix": {
+              "TN": 177405,
+              "FP": 6891,
+              "FN": 1620,
+              "TP": 129
+            }
+          },
+          "exploratory_threshold": 2,
+          "clinically_validated": false,
+          "availability_policy": "All required current values must be observed and within documented mechanical bounds; no carry or imputation.",
+          "missing_clinical_components": [
+            "altered mentation"
+          ],
+          "interpretation": "Incomplete score versus model on identical complete-case hours; retrospective discrimination is not clinical validation."
+        },
+        "news2_scale1_vitals_subtotal": {
+          "status": "incomplete_research_proxy",
+          "source_url": "https://www.rcp.ac.uk/media/alxev00t/news2-chart-1_the-news-scoring-system_0_0.pdf",
+          "coverage": {
+            "total_hours": 232838,
+            "available_hours": 70668,
+            "unavailable_hours": 162170,
+            "available_fraction": 0.30350715948427665,
+            "positive_hours": 651,
+            "prevalence": 0.009212090337918153,
+            "available_by_component": {
+              "Resp": 196400,
+              "O2Sat": 202169,
+              "SBP": 199039,
+              "HR": 209639,
+              "Temp": 78929
+            }
+          },
+          "proxy": {
+            "AUROC": 0.6346638726118456,
+            "PR_AUC_average_precision": 0.015579096527153212
+          },
+          "model_same_subset": {
+            "AUROC": 0.7783544426461101,
+            "PR_AUC_average_precision": 0.045277906891315965
+          },
+          "exploratory_threshold_metrics": {
+            "threshold": 5,
+            "comparison": ">=",
+            "precision": 0.019947678221059514,
+            "recall": 0.28110599078341014,
+            "sensitivity": 0.28110599078341014,
+            "specificity": 0.871588328548781,
+            "F1": 0.037251908396946566,
+            "confusion_matrix": {
+              "TN": 61026,
+              "FP": 8991,
+              "FN": 468,
+              "TP": 183
+            }
+          },
+          "exploratory_threshold": 5,
+          "clinically_validated": false,
+          "availability_policy": "All required current values must be observed and within documented mechanical bounds; no carry or imputation.",
+          "missing_clinical_components": [
+            "consciousness/new confusion",
+            "oxygen-treatment status",
+            "prescribed saturation-scale choice"
+          ],
+          "interpretation": "Incomplete score versus model on identical complete-case hours; retrospective discrimination is not clinical validation.",
+          "fractional_value_bin_extension": {
+            "Resp": "<=8:3; >8..11:1; >11..20:0; >20..24:2; >24:3",
+            "O2Sat": "<=91:3; >91..93:2; >93..95:1; >95:0",
+            "SBP": "<=90:3; >90..100:2; >100..110:1; >110..<220:0; >=220:3",
+            "HR": "<=40:3; >40..50:1; >50..90:0; >90..110:1; >110..130:2; >130:3",
+            "Temp": "<=35:3; >35..36:1; >36..38:0; >38..39:1; >39:2"
+          }
+        }
+      }
+    },
+    "xgboost": {
+      "context": {
+        "dataset": "PhysioNet Challenge 2019 v1.0.0 training sets A+B",
+        "split": "test",
+        "patients": 5985,
+        "hours": 232838,
+        "positive_hours": 2235,
+        "weighting": "Each eligible observed hour has equal evaluation weight; hours are correlated within patients",
+        "framing": "Supplied SepsisLabel on pre-onset hours only, six-hour label-implied onset framing; uncertain onsets excluded"
+      },
+      "raw": {
+        "hours": 232838,
+        "positive_hours": 2235,
+        "prevalence": 0.009598948625224405,
+        "AUROC": 0.8364080831520194,
+        "PR_AUC_average_precision": 0.08806969319705836,
+        "Brier_score": 0.00910769448292894,
+        "calibration_bins": [
+          {
+            "lower": 0.0,
+            "upper": 0.1,
+            "n": 230270,
+            "mean_probability": 0.008502093392041212,
+            "observed_fraction": 0.008133929734659312
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "n": 2352,
+            "mean_probability": 0.13182064673236135,
+            "observed_fraction": 0.1296768707482993
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "n": 188,
+            "mean_probability": 0.2301728902186485,
+            "observed_fraction": 0.2127659574468085
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "n": 22,
+            "mean_probability": 0.3446707766164433,
+            "observed_fraction": 0.5454545454545454
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "n": 6,
+            "mean_probability": 0.46923578282197315,
+            "observed_fraction": 0.8333333333333334
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.9,
+            "upper": 1.0,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          }
+        ],
+        "expected_calibration_error_10_bins": 0.00042816695762056185,
+        "prototype_thresholds": [
+          {
+            "threshold": 0.3,
+            "comparison": ">=",
+            "precision": 0.6071428571428571,
+            "recall": 0.007606263982102908,
+            "sensitivity": 0.007606263982102908,
+            "specificity": 0.9999522989726933,
+            "F1": 0.015024304021210782,
+            "confusion_matrix": {
+              "TN": 230592,
+              "FP": 11,
+              "FN": 2218,
+              "TP": 17
+            }
+          },
+          {
+            "threshold": 0.5,
+            "comparison": ">=",
+            "precision": 0.0,
+            "recall": 0.0,
+            "sensitivity": 0.0,
+            "specificity": 1.0,
+            "F1": 0.0,
+            "confusion_matrix": {
+              "TN": 230603,
+              "FP": 0,
+              "FN": 2235,
+              "TP": 0
+            }
+          },
+          {
+            "threshold": 0.75,
+            "comparison": ">",
+            "precision": 0.0,
+            "recall": 0.0,
+            "sensitivity": 0.0,
+            "specificity": 1.0,
+            "F1": 0.0,
+            "confusion_matrix": {
+              "TN": 230603,
+              "FP": 0,
+              "FN": 2235,
+              "TP": 0
+            }
+          }
+        ]
+      },
+      "calibrated": {
+        "hours": 232838,
+        "positive_hours": 2235,
+        "prevalence": 0.009598948625224405,
+        "AUROC": 0.8364080831520194,
+        "PR_AUC_average_precision": 0.08806969319705836,
+        "Brier_score": 0.009133961222335792,
+        "calibration_bins": [
+          {
+            "lower": 0.0,
+            "upper": 0.1,
+            "n": 231609,
+            "mean_probability": 0.008348121117513633,
+            "observed_fraction": 0.008678419232413248
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "n": 1182,
+            "mean_probability": 0.12544103057271733,
+            "observed_fraction": 0.17174280879864637
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "n": 41,
+            "mean_probability": 0.23535986118984245,
+            "observed_fraction": 0.4146341463414634
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "n": 6,
+            "mean_probability": 0.35624469081118154,
+            "observed_fraction": 0.8333333333333334
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.9,
+            "upper": 1.0,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          }
+        ],
+        "expected_calibration_error_10_bins": 0.000607467404389243,
+        "prototype_thresholds": [
+          {
+            "threshold": 0.3,
+            "comparison": ">=",
+            "precision": 0.8333333333333334,
+            "recall": 0.0022371364653243847,
+            "sensitivity": 0.0022371364653243847,
+            "specificity": 0.9999956635429721,
+            "F1": 0.004462293618920125,
+            "confusion_matrix": {
+              "TN": 230602,
+              "FP": 1,
+              "FN": 2230,
+              "TP": 5
+            }
+          },
+          {
+            "threshold": 0.5,
+            "comparison": ">=",
+            "precision": 0.0,
+            "recall": 0.0,
+            "sensitivity": 0.0,
+            "specificity": 1.0,
+            "F1": 0.0,
+            "confusion_matrix": {
+              "TN": 230603,
+              "FP": 0,
+              "FN": 2235,
+              "TP": 0
+            }
+          },
+          {
+            "threshold": 0.75,
+            "comparison": ">",
+            "precision": 0.0,
+            "recall": 0.0,
+            "sensitivity": 0.0,
+            "specificity": 1.0,
+            "F1": 0.0,
+            "confusion_matrix": {
+              "TN": 230603,
+              "FP": 0,
+              "FN": 2235,
+              "TP": 0
+            }
+          }
+        ],
+        "research_operating_point": {
+          "threshold": 0.06359397084821286,
+          "comparison": ">=",
+          "precision": 0.12448132780082988,
+          "recall": 0.22818791946308725,
+          "sensitivity": 0.22818791946308725,
+          "specificity": 0.9844451286409978,
+          "F1": 0.1610865445356917,
+          "confusion_matrix": {
+            "TN": 227016,
+            "FP": 3587,
+            "FN": 1725,
+            "TP": 510
+          }
+        },
+        "recall_at_target_precision_frozen_validation_threshold": {
+          "threshold": 0.12502056621145116,
+          "comparison": ">=",
+          "precision": 0.22532588454376165,
+          "recall": 0.05413870246085011,
+          "sensitivity": 0.05413870246085011,
+          "specificity": 0.9981960338764023,
+          "F1": 0.0873015873015873,
+          "confusion_matrix": {
+            "TN": 230187,
+            "FP": 416,
+            "FN": 2114,
+            "TP": 121
+          }
+        },
+        "precision_at_target_recall_frozen_validation_threshold": {
+          "threshold": 0.00684568213090552,
+          "comparison": ">=",
+          "precision": 0.02480346234968636,
+          "recall": 0.8102908277404922,
+          "sensitivity": 0.8102908277404922,
+          "specificity": 0.6912312502439257,
+          "F1": 0.04813353001368789,
+          "confusion_matrix": {
+            "TN": 159400,
+            "FP": 71203,
+            "FN": 424,
+            "TP": 1811
+          }
+        }
+      },
+      "lead_time": {
+        "watch": {
+          "threshold": 0.3,
+          "comparison": ">=",
+          "eligible_septic_patients": 374,
+          "septic_patients_with_any_preonset_alert": 3,
+          "septic_patients_without_alert": 371,
+          "patients_alerted_in_1_to_12h_window": 2,
+          "patients_alerted_in_1_to_6h_window": 2,
+          "patients_alerted_in_6_to_12h_window": 0,
+          "patients_alerted_more_than_12h_early": 1,
+          "first_preonset_alert_lead_distribution": {
+            "n": 3,
+            "median": 5.0,
+            "p25": 3.5,
+            "p75": 63.5,
+            "min": 2.0,
+            "max": 122.0
+          },
+          "first_alert_within_1_to_12h_distribution": {
+            "n": 2,
+            "median": 3.5,
+            "p25": 2.75,
+            "p75": 4.25,
+            "min": 2.0,
+            "max": 5.0
+          },
+          "nonseptic_patients": 5611,
+          "nonseptic_patients_with_any_alert": 0,
+          "nonseptic_ever_alert_fraction": 0.0,
+          "nonseptic_alert_hours_per_100_patient_hours": 0.0,
+          "empty_clinical_prefix_alerts_withheld": true,
+          "interpretation": "When clinical-history availability is supplied, empty prefixes cannot alert. Retrospective label-implied onset; conditional lead-time summaries omit misses. Window detections are experimental, not proof of clinical usefulness. No cooldown; repeated hourly alerts counted for burden."
+        },
+        "elevated": {
+          "threshold": 0.5,
+          "comparison": ">=",
+          "eligible_septic_patients": 374,
+          "septic_patients_with_any_preonset_alert": 0,
+          "septic_patients_without_alert": 374,
+          "patients_alerted_in_1_to_12h_window": 0,
+          "patients_alerted_in_1_to_6h_window": 0,
+          "patients_alerted_in_6_to_12h_window": 0,
+          "patients_alerted_more_than_12h_early": 0,
+          "first_preonset_alert_lead_distribution": {
+            "n": 0,
+            "median": null,
+            "p25": null,
+            "p75": null,
+            "min": null,
+            "max": null
+          },
+          "first_alert_within_1_to_12h_distribution": {
+            "n": 0,
+            "median": null,
+            "p25": null,
+            "p75": null,
+            "min": null,
+            "max": null
+          },
+          "nonseptic_patients": 5611,
+          "nonseptic_patients_with_any_alert": 0,
+          "nonseptic_ever_alert_fraction": 0.0,
+          "nonseptic_alert_hours_per_100_patient_hours": 0.0,
+          "empty_clinical_prefix_alerts_withheld": true,
+          "interpretation": "When clinical-history availability is supplied, empty prefixes cannot alert. Retrospective label-implied onset; conditional lead-time summaries omit misses. Window detections are experimental, not proof of clinical usefulness. No cooldown; repeated hourly alerts counted for burden."
+        },
+        "critical": {
+          "threshold": 0.75,
+          "comparison": ">",
+          "eligible_septic_patients": 374,
+          "septic_patients_with_any_preonset_alert": 0,
+          "septic_patients_without_alert": 374,
+          "patients_alerted_in_1_to_12h_window": 0,
+          "patients_alerted_in_1_to_6h_window": 0,
+          "patients_alerted_in_6_to_12h_window": 0,
+          "patients_alerted_more_than_12h_early": 0,
+          "first_preonset_alert_lead_distribution": {
+            "n": 0,
+            "median": null,
+            "p25": null,
+            "p75": null,
+            "min": null,
+            "max": null
+          },
+          "first_alert_within_1_to_12h_distribution": {
+            "n": 0,
+            "median": null,
+            "p25": null,
+            "p75": null,
+            "min": null,
+            "max": null
+          },
+          "nonseptic_patients": 5611,
+          "nonseptic_patients_with_any_alert": 0,
+          "nonseptic_ever_alert_fraction": 0.0,
+          "nonseptic_alert_hours_per_100_patient_hours": 0.0,
+          "empty_clinical_prefix_alerts_withheld": true,
+          "interpretation": "When clinical-history availability is supplied, empty prefixes cannot alert. Retrospective label-implied onset; conditional lead-time summaries omit misses. Window detections are experimental, not proof of clinical usefulness. No cooldown; repeated hourly alerts counted for burden."
+        },
+        "research_max_f1": {
+          "threshold": 0.06359397084821286,
+          "comparison": ">=",
+          "eligible_septic_patients": 374,
+          "septic_patients_with_any_preonset_alert": 144,
+          "septic_patients_without_alert": 230,
+          "patients_alerted_in_1_to_12h_window": 130,
+          "patients_alerted_in_1_to_6h_window": 119,
+          "patients_alerted_in_6_to_12h_window": 101,
+          "patients_alerted_more_than_12h_early": 116,
+          "first_preonset_alert_lead_distribution": {
+            "n": 144,
+            "median": 38.5,
+            "p25": 16.0,
+            "p75": 85.25,
+            "min": 1.0,
+            "max": 237.0
+          },
+          "first_alert_within_1_to_12h_distribution": {
+            "n": 130,
+            "median": 11.0,
+            "p25": 6.0,
+            "p75": 12.0,
+            "min": 1.0,
+            "max": 12.0
+          },
+          "nonseptic_patients": 5611,
+          "nonseptic_patients_with_any_alert": 63,
+          "nonseptic_ever_alert_fraction": 0.011227945107823918,
+          "nonseptic_alert_hours_per_100_patient_hours": 0.11034985702496786,
+          "empty_clinical_prefix_alerts_withheld": true,
+          "interpretation": "When clinical-history availability is supplied, empty prefixes cannot alert. Retrospective label-implied onset; conditional lead-time summaries omit misses. Window detections are experimental, not proof of clinical usefulness. No cooldown; repeated hourly alerts counted for burden."
+        }
+      },
+      "inference_coverage": {
+        "eligible_model_hours": 232838,
+        "hours_with_clinical_history": 227846,
+        "withheld_empty_history_hours": 4992,
+        "coverage_fraction": 0.9785602006545323,
+        "policy": "Model discrimination uses all eligible hours. The inference interface withholds empty clinical prefixes; lead-time alerts below apply that same withholding policy."
+      },
+      "calibrated_on_inference_available_hours": {
+        "hours": 227846,
+        "positive_hours": 2235,
+        "prevalence": 0.009809257129815752,
+        "AUROC": 0.8327940966909675,
+        "PR_AUC_average_precision": 0.08806974864849232,
+        "Brier_score": 0.009334058634397175,
+        "calibration_bins": [
+          {
+            "lower": 0.0,
+            "upper": 0.1,
+            "n": 226617,
+            "mean_probability": 0.008509749089958439,
+            "observed_fraction": 0.008869590542633607
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "n": 1182,
+            "mean_probability": 0.12544103057271733,
+            "observed_fraction": 0.17174280879864637
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "n": 41,
+            "mean_probability": 0.23535986118984245,
+            "observed_fraction": 0.4146341463414634
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "n": 6,
+            "mean_probability": 0.35624469081118154,
+            "observed_fraction": 0.8333333333333334
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          },
+          {
+            "lower": 0.9,
+            "upper": 1.0,
+            "n": 0,
+            "mean_probability": null,
+            "observed_fraction": null
+          }
+        ],
+        "expected_calibration_error_10_bins": 0.0006429240359290309,
+        "prototype_thresholds": [
+          {
+            "threshold": 0.3,
+            "comparison": ">=",
+            "precision": 0.8333333333333334,
+            "recall": 0.0022371364653243847,
+            "sensitivity": 0.0022371364653243847,
+            "specificity": 0.9999955675920057,
+            "F1": 0.004462293618920125,
+            "confusion_matrix": {
+              "TN": 225610,
+              "FP": 1,
+              "FN": 2230,
+              "TP": 5
+            }
+          },
+          {
+            "threshold": 0.5,
+            "comparison": ">=",
+            "precision": 0.0,
+            "recall": 0.0,
+            "sensitivity": 0.0,
+            "specificity": 1.0,
+            "F1": 0.0,
+            "confusion_matrix": {
+              "TN": 225611,
+              "FP": 0,
+              "FN": 2235,
+              "TP": 0
+            }
+          },
+          {
+            "threshold": 0.75,
+            "comparison": ">",
+            "precision": 0.0,
+            "recall": 0.0,
+            "sensitivity": 0.0,
+            "specificity": 1.0,
+            "F1": 0.0,
+            "confusion_matrix": {
+              "TN": 225611,
+              "FP": 0,
+              "FN": 2235,
+              "TP": 0
+            }
+          }
+        ],
+        "research_operating_point": {
+          "threshold": 0.06359397084821286,
+          "comparison": ">=",
+          "precision": 0.12448132780082988,
+          "recall": 0.22818791946308725,
+          "sensitivity": 0.22818791946308725,
+          "specificity": 0.9841009525244779,
+          "F1": 0.1610865445356917,
+          "confusion_matrix": {
+            "TN": 222024,
+            "FP": 3587,
+            "FN": 1725,
+            "TP": 510
+          }
+        },
+        "recall_at_target_precision_frozen_validation_threshold": {
+          "threshold": 0.12502056621145116,
+          "comparison": ">=",
+          "precision": 0.22532588454376165,
+          "recall": 0.05413870246085011,
+          "sensitivity": 0.05413870246085011,
+          "specificity": 0.9981561182743749,
+          "F1": 0.0873015873015873,
+          "confusion_matrix": {
+            "TN": 225195,
+            "FP": 416,
+            "FN": 2114,
+            "TP": 121
+          }
+        },
+        "precision_at_target_recall_frozen_validation_threshold": {
+          "threshold": 0.00684568213090552,
+          "comparison": ">=",
+          "precision": 0.02480346234968636,
+          "recall": 0.8102908277404922,
+          "sensitivity": 0.8102908277404922,
+          "specificity": 0.6843992535824938,
+          "F1": 0.04813353001368789,
+          "confusion_matrix": {
+            "TN": 154408,
+            "FP": 71203,
+            "FN": 424,
+            "TP": 1811
+          }
+        }
+      },
+      "clinical_score_proxies": {
+        "qsofa_2_component_proxy": {
+          "status": "incomplete_research_proxy",
+          "source_url": "https://jamanetwork.com/journals/jama/fullarticle/2492881",
+          "coverage": {
+            "total_hours": 232838,
+            "available_hours": 186045,
+            "unavailable_hours": 46793,
+            "available_fraction": 0.7990319449574382,
+            "positive_hours": 1749,
+            "prevalence": 0.009400951382729984,
+            "available_by_component": {
+              "Resp": 196400,
+              "SBP": 199039
+            }
+          },
+          "proxy": {
+            "AUROC": 0.5814499063368191,
+            "PR_AUC_average_precision": 0.011829258447489515
+          },
+          "model_same_subset": {
+            "AUROC": 0.830201507565588,
+            "PR_AUC_average_precision": 0.07448965897967634
+          },
+          "exploratory_threshold_metrics": {
+            "threshold": 2,
+            "comparison": ">=",
+            "precision": 0.018376068376068377,
+            "recall": 0.07375643224699828,
+            "sensitivity": 0.07375643224699828,
+            "specificity": 0.9626090636801667,
+            "F1": 0.02942182689018132,
+            "confusion_matrix": {
+              "TN": 177405,
+              "FP": 6891,
+              "FN": 1620,
+              "TP": 129
+            }
+          },
+          "exploratory_threshold": 2,
+          "clinically_validated": false,
+          "availability_policy": "All required current values must be observed and within documented mechanical bounds; no carry or imputation.",
+          "missing_clinical_components": [
+            "altered mentation"
+          ],
+          "interpretation": "Incomplete score versus model on identical complete-case hours; retrospective discrimination is not clinical validation."
+        },
+        "news2_scale1_vitals_subtotal": {
+          "status": "incomplete_research_proxy",
+          "source_url": "https://www.rcp.ac.uk/media/alxev00t/news2-chart-1_the-news-scoring-system_0_0.pdf",
+          "coverage": {
+            "total_hours": 232838,
+            "available_hours": 70668,
+            "unavailable_hours": 162170,
+            "available_fraction": 0.30350715948427665,
+            "positive_hours": 651,
+            "prevalence": 0.009212090337918153,
+            "available_by_component": {
+              "Resp": 196400,
+              "O2Sat": 202169,
+              "SBP": 199039,
+              "HR": 209639,
+              "Temp": 78929
+            }
+          },
+          "proxy": {
+            "AUROC": 0.6346638726118456,
+            "PR_AUC_average_precision": 0.015579096527153212
+          },
+          "model_same_subset": {
+            "AUROC": 0.8408364595765168,
+            "PR_AUC_average_precision": 0.070476093223385
+          },
+          "exploratory_threshold_metrics": {
+            "threshold": 5,
+            "comparison": ">=",
+            "precision": 0.019947678221059514,
+            "recall": 0.28110599078341014,
+            "sensitivity": 0.28110599078341014,
+            "specificity": 0.871588328548781,
+            "F1": 0.037251908396946566,
+            "confusion_matrix": {
+              "TN": 61026,
+              "FP": 8991,
+              "FN": 468,
+              "TP": 183
+            }
+          },
+          "exploratory_threshold": 5,
+          "clinically_validated": false,
+          "availability_policy": "All required current values must be observed and within documented mechanical bounds; no carry or imputation.",
+          "missing_clinical_components": [
+            "consciousness/new confusion",
+            "oxygen-treatment status",
+            "prescribed saturation-scale choice"
+          ],
+          "interpretation": "Incomplete score versus model on identical complete-case hours; retrospective discrimination is not clinical validation.",
+          "fractional_value_bin_extension": {
+            "Resp": "<=8:3; >8..11:1; >11..20:0; >20..24:2; >24:3",
+            "O2Sat": "<=91:3; >91..93:2; >93..95:1; >95:0",
+            "SBP": "<=90:3; >90..100:2; >100..110:1; >110..<220:0; >=220:3",
+            "HR": "<=40:3; >40..50:1; >50..90:0; >90..110:1; >110..130:2; >130:3",
+            "Temp": "<=35:3; >35..36:1; >36..38:0; >38..39:1; >39:2"
+          }
+        }
+      }
+    }
+  },
+  "validation": {
+    "status": "decisions_frozen",
+    "started_utc": "2026-09-23T01:59:45.460482+00:00",
+    "config_sha256": "676972cccc084bab178a4c9e2e14d2b9bdb86334a97069ee4ee36e3c4683c99a",
+    "training": {
+      "dataset": "PhysioNet Challenge 2019 v1.0.0 training sets A+B",
+      "split": "train_sample",
+      "patients": 27449,
+      "hours": 160000,
+      "positive_hours": 1578,
+      "weighting": "Each eligible observed hour has equal evaluation weight; hours are correlated within patients",
+      "framing": "Supplied SepsisLabel on pre-onset hours only, six-hour label-implied onset framing; uncertain onsets excluded"
+    },
+    "prepared_source_sha256": {
+      "reports/dataset_audit.json": "651dbbcec541b3b05a00627e04bce45deb327f190608afe4f2245acbed8b2656",
+      "reports/patient_metadata.csv": "16a530083b6df81daf701d4a64642e42bec91fe87628e3e06834827739651c3d",
+      "reports/patient_split.csv": "3f1e41c901fc6371b749af1d11b3152d6aa695b52352eee82c6dadf42cd48a09",
+      "reports/training_sample.csv": "adaa2ea16ada42a68af2fe3fa00db153f8795adc31565c0c7acd9c458c3c8edb"
+    },
+    "training_warnings": {
+      "logistic_regression": [],
+      "random_forest": []
+    },
+    "selection": {
+      "logistic_regression": {
+        "context": {
+          "dataset": "PhysioNet Challenge 2019 v1.0.0 training sets A+B",
+          "split": "validation_selection",
+          "patients": 1999,
+          "hours": 78059,
+          "positive_hours": 763,
+          "weighting": "Each eligible observed hour has equal evaluation weight; hours are correlated within patients",
+          "framing": "Supplied SepsisLabel on pre-onset hours only, six-hour label-implied onset framing; uncertain onsets excluded"
+        },
+        "raw": {
+          "hours": 78059,
+          "positive_hours": 763,
+          "prevalence": 0.009774657630766471,
+          "AUROC": 0.7878017573946984,
+          "PR_AUC_average_precision": 0.048495298720031874,
+          "Brier_score": 0.18181390116690946,
+          "calibration_bins": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 2452,
+              "mean_probability": 0.07492231857985589,
+              "observed_fraction": 0.0016313213703099511
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 12473,
+              "mean_probability": 0.1575720944929207,
+              "observed_fraction": 0.001202597610839413
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 17984,
+              "mean_probability": 0.24904479553220377,
+              "observed_fraction": 0.0031694839857651248
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 15436,
+              "mean_probability": 0.347647908998759,
+              "observed_fraction": 0.00511790619331433
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 10990,
+              "mean_probability": 0.44703347069822297,
+              "observed_fraction": 0.009645131938125568
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 7255,
+              "mean_probability": 0.5465972138716384,
+              "observed_fraction": 0.012129565816678152
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 4697,
+              "mean_probability": 0.6463592711194465,
+              "observed_fraction": 0.018948264849904195
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 3070,
+              "mean_probability": 0.7461631987692867,
+              "observed_fraction": 0.03713355048859935
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 1991,
+              "mean_probability": 0.8447001326149999,
+              "observed_fraction": 0.047714716223003516
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 1711,
+              "mean_probability": 0.9539977145571238,
+              "observed_fraction": 0.06779661016949153
+            }
+          ],
+          "expected_calibration_error_10_bins": 0.36831678840171744,
+          "prototype_thresholds": [
+            {
+              "threshold": 0.3,
+              "comparison": ">=",
+              "precision": 0.015215946843853821,
+              "recall": 0.9003931847968545,
+              "sensitivity": 0.9003931847968545,
+              "specificity": 0.424769716414821,
+              "F1": 0.029926164702807484,
+              "confusion_matrix": {
+                "TN": 32833,
+                "FP": 44463,
+                "FN": 76,
+                "TP": 687
+              }
+            },
+            {
+              "threshold": 0.5,
+              "comparison": ">=",
+              "precision": 0.026810510574663535,
+              "recall": 0.6579292267365662,
+              "sensitivity": 0.6579292267365662,
+              "specificity": 0.7642568826329953,
+              "F1": 0.0515215271719608,
+              "confusion_matrix": {
+                "TN": 59074,
+                "FP": 18222,
+                "FN": 261,
+                "TP": 502
+              }
+            },
+            {
+              "threshold": 0.75,
+              "comparison": ">",
+              "precision": 0.054487814543293045,
+              "recall": 0.36041939711664484,
+              "sensitivity": 0.36041939711664484,
+              "specificity": 0.9382632995239081,
+              "F1": 0.09466437177280551,
+              "confusion_matrix": {
+                "TN": 72524,
+                "FP": 4772,
+                "FN": 488,
+                "TP": 275
+              }
+            }
+          ]
+        }
+      },
+      "random_forest": {
+        "context": {
+          "dataset": "PhysioNet Challenge 2019 v1.0.0 training sets A+B",
+          "split": "validation_selection",
+          "patients": 1999,
+          "hours": 78059,
+          "positive_hours": 763,
+          "weighting": "Each eligible observed hour has equal evaluation weight; hours are correlated within patients",
+          "framing": "Supplied SepsisLabel on pre-onset hours only, six-hour label-implied onset framing; uncertain onsets excluded"
+        },
+        "raw": {
+          "hours": 78059,
+          "positive_hours": 763,
+          "prevalence": 0.009774657630766471,
+          "AUROC": 0.8078145003612265,
+          "PR_AUC_average_precision": 0.056384098431468486,
+          "Brier_score": 0.06629647978594866,
+          "calibration_bins": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 3078,
+              "mean_probability": 0.07697844736886905,
+              "observed_fraction": 0.0
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 30432,
+              "mean_probability": 0.16249468416125987,
+              "observed_fraction": 0.0025959516298633017
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 30484,
+              "mean_probability": 0.24241283528050261,
+              "observed_fraction": 0.005806324629313738
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 8866,
+              "mean_probability": 0.3390647035423826,
+              "observed_fraction": 0.020189487931423417
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 3099,
+              "mean_probability": 0.4443042970518909,
+              "observed_fraction": 0.05033881897386254
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 1526,
+              "mean_probability": 0.5425409950941051,
+              "observed_fraction": 0.06684141546526867
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 497,
+              "mean_probability": 0.6401885988096723,
+              "observed_fraction": 0.12474849094567404
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 76,
+              "mean_probability": 0.7301800326787294,
+              "observed_fraction": 0.10526315789473684
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 1,
+              "mean_probability": 0.8109875408379548,
+              "observed_fraction": 0.0
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            }
+          ],
+          "expected_calibration_error_10_bins": 0.2228331569761935,
+          "prototype_thresholds": [
+            {
+              "threshold": 0.3,
+              "comparison": ">=",
+              "precision": 0.03604692499111269,
+              "recall": 0.6644823066841415,
+              "sensitivity": 0.6644823066841415,
+              "specificity": 0.8245963568619333,
+              "F1": 0.0683841381170758,
+              "confusion_matrix": {
+                "TN": 63738,
+                "FP": 13558,
+                "FN": 256,
+                "TP": 507
+              }
+            },
+            {
+              "threshold": 0.5,
+              "comparison": ">=",
+              "precision": 0.08190476190476191,
+              "recall": 0.2254259501965924,
+              "sensitivity": 0.2254259501965924,
+              "specificity": 0.9750569240322915,
+              "F1": 0.12015368494586098,
+              "confusion_matrix": {
+                "TN": 75368,
+                "FP": 1928,
+                "FN": 591,
+                "TP": 172
+              }
+            },
+            {
+              "threshold": 0.75,
+              "comparison": ">",
+              "precision": 0.047619047619047616,
+              "recall": 0.001310615989515072,
+              "sensitivity": 0.001310615989515072,
+              "specificity": 0.9997412543986752,
+              "F1": 0.002551020408163265,
+              "confusion_matrix": {
+                "TN": 77276,
+                "FP": 20,
+                "FN": 762,
+                "TP": 1
+              }
+            }
+          ]
+        }
+      },
+      "xgboost": {
+        "context": {
+          "dataset": "PhysioNet Challenge 2019 v1.0.0 training sets A+B",
+          "split": "validation_selection",
+          "patients": 1999,
+          "hours": 78059,
+          "positive_hours": 763,
+          "weighting": "Each eligible observed hour has equal evaluation weight; hours are correlated within patients",
+          "framing": "Supplied SepsisLabel on pre-onset hours only, six-hour label-implied onset framing; uncertain onsets excluded"
+        },
+        "raw": {
+          "hours": 78059,
+          "positive_hours": 763,
+          "prevalence": 0.009774657630766471,
+          "AUROC": 0.8361547568632355,
+          "PR_AUC_average_precision": 0.09277303164022814,
+          "Brier_score": 0.009265193019306629,
+          "calibration_bins": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 76945,
+              "mean_probability": 0.00875929701998126,
+              "observed_fraction": 0.0080187146663201
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 1002,
+              "mean_probability": 0.13194993600814403,
+              "observed_fraction": 0.11377245508982035
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 89,
+              "mean_probability": 0.23039731366580793,
+              "observed_fraction": 0.21348314606741572
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 17,
+              "mean_probability": 0.34220117681166706,
+              "observed_fraction": 0.47058823529411764
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 6,
+              "mean_probability": 0.4357636918624242,
+              "observed_fraction": 0.8333333333333334
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            }
+          ],
+          "expected_calibration_error_10_bins": 0.0010411522546010376,
+          "prototype_thresholds": [
+            {
+              "threshold": 0.3,
+              "comparison": ">=",
+              "precision": 0.5652173913043478,
+              "recall": 0.01703800786369594,
+              "sensitivity": 0.01703800786369594,
+              "specificity": 0.9998706271993376,
+              "F1": 0.03307888040712468,
+              "confusion_matrix": {
+                "TN": 77286,
+                "FP": 10,
+                "FN": 750,
+                "TP": 13
+              }
+            },
+            {
+              "threshold": 0.5,
+              "comparison": ">=",
+              "precision": 0.0,
+              "recall": 0.0,
+              "sensitivity": 0.0,
+              "specificity": 1.0,
+              "F1": 0.0,
+              "confusion_matrix": {
+                "TN": 77296,
+                "FP": 0,
+                "FN": 763,
+                "TP": 0
+              }
+            },
+            {
+              "threshold": 0.75,
+              "comparison": ">",
+              "precision": 0.0,
+              "recall": 0.0,
+              "sensitivity": 0.0,
+              "specificity": 1.0,
+              "F1": 0.0,
+              "confusion_matrix": {
+                "TN": 77296,
+                "FP": 0,
+                "FN": 763,
+                "TP": 0
+              }
+            }
+          ]
+        }
+      }
+    },
+    "calibration": {
+      "logistic_regression": {
+        "context": {
+          "dataset": "PhysioNet Challenge 2019 v1.0.0 training sets A+B",
+          "split": "validation_calibration",
+          "patients": 1991,
+          "hours": 77137,
+          "positive_hours": 726,
+          "weighting": "Each eligible observed hour has equal evaluation weight; hours are correlated within patients",
+          "framing": "Supplied SepsisLabel on pre-onset hours only, six-hour label-implied onset framing; uncertain onsets excluded"
+        },
+        "slope": 0.5799843740676257,
+        "intercept": -4.620245848824642,
+        "raw": {
+          "hours": 77137,
+          "positive_hours": 726,
+          "prevalence": 0.009411825712693,
+          "AUROC": 0.7907563411337261,
+          "PR_AUC_average_precision": 0.04489935177872162,
+          "Brier_score": 0.17595669057791002,
+          "calibration_bins": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 2427,
+              "mean_probability": 0.07415387597595821,
+              "observed_fraction": 0.002472187886279357
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 12968,
+              "mean_probability": 0.15804733703617307,
+              "observed_fraction": 0.0020049352251696483
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 18286,
+              "mean_probability": 0.24933376125922077,
+              "observed_fraction": 0.002460899048452368
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 15461,
+              "mean_probability": 0.3474645968797668,
+              "observed_fraction": 0.004786236336588837
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 10705,
+              "mean_probability": 0.4467821816538384,
+              "observed_fraction": 0.00831387202241943
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 6775,
+              "mean_probability": 0.5454406745759324,
+              "observed_fraction": 0.012398523985239853
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 4226,
+              "mean_probability": 0.6456148628087276,
+              "observed_fraction": 0.02129673450070989
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 2640,
+              "mean_probability": 0.7463907919598348,
+              "observed_fraction": 0.03484848484848485
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 1821,
+              "mean_probability": 0.8472773344355714,
+              "observed_fraction": 0.04503020318506315
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 1828,
+              "mean_probability": 0.9545310396269061,
+              "observed_fraction": 0.07549234135667396
+            }
+          ],
+          "expected_calibration_error_10_bins": 0.3616912157165565,
+          "prototype_thresholds": [
+            {
+              "threshold": 0.3,
+              "comparison": ">=",
+              "precision": 0.014934646539027983,
+              "recall": 0.8939393939393939,
+              "sensitivity": 0.8939393939393939,
+              "specificity": 0.43977961288296186,
+              "F1": 0.02937847992395093,
+              "confusion_matrix": {
+                "TN": 33604,
+                "FP": 42807,
+                "FN": 77,
+                "TP": 649
+              }
+            },
+            {
+              "threshold": 0.5,
+              "comparison": ">=",
+              "precision": 0.028108733371891268,
+              "recall": 0.6694214876033058,
+              "sensitivity": 0.6694214876033058,
+              "specificity": 0.7800840193165905,
+              "F1": 0.05395204262877442,
+              "confusion_matrix": {
+                "TN": 59607,
+                "FP": 16804,
+                "FN": 240,
+                "TP": 486
+              }
+            },
+            {
+              "threshold": 0.75,
+              "comparison": ">",
+              "precision": 0.0540428185408439,
+              "recall": 0.3581267217630854,
+              "sensitivity": 0.3581267217630854,
+              "specificity": 0.9404405124916569,
+              "F1": 0.09391367166335561,
+              "confusion_matrix": {
+                "TN": 71860,
+                "FP": 4551,
+                "FN": 466,
+                "TP": 260
+              }
+            }
+          ]
+        },
+        "calibrated_fit_population": {
+          "hours": 77137,
+          "positive_hours": 726,
+          "prevalence": 0.009411825712693,
+          "AUROC": 0.7907563411337261,
+          "PR_AUC_average_precision": 0.04489935177872163,
+          "Brier_score": 0.009346467943701038,
+          "calibration_bins": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 76733,
+              "mean_probability": 0.008469113682196185,
+              "observed_fraction": 0.009070412990499524
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 283,
+              "mean_probability": 0.135126891315819,
+              "observed_fraction": 0.0812720848056537
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 77,
+              "mean_probability": 0.2424370232090677,
+              "observed_fraction": 0.07792207792207792
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 21,
+              "mean_probability": 0.33440851828951645,
+              "observed_fraction": 0.047619047619047616
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 8,
+              "mean_probability": 0.4479490792360857,
+              "observed_fraction": 0.0
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 4,
+              "mean_probability": 0.5464020498156844,
+              "observed_fraction": 0.0
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 4,
+              "mean_probability": 0.6330051187778374,
+              "observed_fraction": 0.0
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 4,
+              "mean_probability": 0.743294520659731,
+              "observed_fraction": 0.0
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 3,
+              "mean_probability": 0.9912333715880685,
+              "observed_fraction": 0.0
+            }
+          ],
+          "expected_calibration_error_10_bins": 0.001222743161430453,
+          "prototype_thresholds": [
+            {
+              "threshold": 0.3,
+              "comparison": ">=",
+              "precision": 0.022727272727272728,
+              "recall": 0.0013774104683195593,
+              "sensitivity": 0.0013774104683195593,
+              "specificity": 0.9994372537985369,
+              "F1": 0.0025974025974025974,
+              "confusion_matrix": {
+                "TN": 76368,
+                "FP": 43,
+                "FN": 725,
+                "TP": 1
+              }
+            },
+            {
+              "threshold": 0.5,
+              "comparison": ">=",
+              "precision": 0.0,
+              "recall": 0.0,
+              "sensitivity": 0.0,
+              "specificity": 0.9998036931855361,
+              "F1": 0.0,
+              "confusion_matrix": {
+                "TN": 76396,
+                "FP": 15,
+                "FN": 726,
+                "TP": 0
+              }
+            },
+            {
+              "threshold": 0.75,
+              "comparison": ">",
+              "precision": 0.0,
+              "recall": 0.0,
+              "sensitivity": 0.0,
+              "specificity": 0.9999345643951787,
+              "F1": 0.0,
+              "confusion_matrix": {
+                "TN": 76406,
+                "FP": 5,
+                "FN": 726,
+                "TP": 0
+              }
+            }
+          ]
+        }
+      },
+      "random_forest": {
+        "context": {
+          "dataset": "PhysioNet Challenge 2019 v1.0.0 training sets A+B",
+          "split": "validation_calibration",
+          "patients": 1991,
+          "hours": 77137,
+          "positive_hours": 726,
+          "weighting": "Each eligible observed hour has equal evaluation weight; hours are correlated within patients",
+          "framing": "Supplied SepsisLabel on pre-onset hours only, six-hour label-implied onset framing; uncertain onsets excluded"
+        },
+        "slope": 1.6610341489004972,
+        "intercept": -3.0040857757730817,
+        "raw": {
+          "hours": 77137,
+          "positive_hours": 726,
+          "prevalence": 0.009411825712693,
+          "AUROC": 0.7747814459812138,
+          "PR_AUC_average_precision": 0.048774923128071364,
+          "Brier_score": 0.0654362538393536,
+          "calibration_bins": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 3316,
+              "mean_probability": 0.07719809266301174,
+              "observed_fraction": 0.0015078407720144752
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 30503,
+              "mean_probability": 0.16216299427973113,
+              "observed_fraction": 0.003048880437989706
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 29547,
+              "mean_probability": 0.242375116623864,
+              "observed_fraction": 0.007208853690730023
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 8927,
+              "mean_probability": 0.33905969734528446,
+              "observed_fraction": 0.017363055897838018
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 2977,
+              "mean_probability": 0.44386433891827415,
+              "observed_fraction": 0.040980853207927444
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 1373,
+              "mean_probability": 0.542759134421807,
+              "observed_fraction": 0.07137654770575383
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 416,
+              "mean_probability": 0.6404357617017229,
+              "observed_fraction": 0.07451923076923077
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 71,
+              "mean_probability": 0.7300595478878944,
+              "observed_fraction": 0.08450704225352113
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 7,
+              "mean_probability": 0.8056829195703211,
+              "observed_fraction": 0.42857142857142855
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            }
+          ],
+          "expected_calibration_error_10_bins": 0.2211024267549638,
+          "prototype_thresholds": [
+            {
+              "threshold": 0.3,
+              "comparison": ">=",
+              "precision": 0.030135792607653766,
+              "recall": 0.571625344352617,
+              "sensitivity": 0.571625344352617,
+              "specificity": 0.8252084124013558,
+              "F1": 0.0572532248051321,
+              "confusion_matrix": {
+                "TN": 63055,
+                "FP": 13356,
+                "FN": 311,
+                "TP": 415
+              }
+            },
+            {
+              "threshold": 0.5,
+              "comparison": ">=",
+              "precision": 0.07391537225495447,
+              "recall": 0.19008264462809918,
+              "sensitivity": 0.19008264462809918,
+              "specificity": 0.977372367852796,
+              "F1": 0.10644041650597763,
+              "confusion_matrix": {
+                "TN": 74682,
+                "FP": 1729,
+                "FN": 588,
+                "TP": 138
+              }
+            },
+            {
+              "threshold": 0.75,
+              "comparison": ">",
+              "precision": 0.21739130434782608,
+              "recall": 0.006887052341597796,
+              "sensitivity": 0.006887052341597796,
+              "specificity": 0.9997644318226433,
+              "F1": 0.01335113484646195,
+              "confusion_matrix": {
+                "TN": 76393,
+                "FP": 18,
+                "FN": 721,
+                "TP": 5
+              }
+            }
+          ]
+        },
+        "calibrated_fit_population": {
+          "hours": 77137,
+          "positive_hours": 726,
+          "prevalence": 0.009411825712693,
+          "AUROC": 0.7747814459812139,
+          "PR_AUC_average_precision": 0.048774923128071364,
+          "Brier_score": 0.0091612276441425,
+          "calibration_bins": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 76759,
+              "mean_probability": 0.008736677806941937,
+              "observed_fraction": 0.009028257272762803
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 342,
+              "mean_probability": 0.13236654599207134,
+              "observed_fraction": 0.08187134502923976
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 26,
+              "mean_probability": 0.23790909233539295,
+              "observed_fraction": 0.0
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 10,
+              "mean_probability": 0.3369208561015365,
+              "observed_fraction": 0.5
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            }
+          ],
+          "expected_calibration_error_10_bins": 0.0006153614320745834,
+          "prototype_thresholds": [
+            {
+              "threshold": 0.3,
+              "comparison": ">=",
+              "precision": 0.5,
+              "recall": 0.006887052341597796,
+              "sensitivity": 0.006887052341597796,
+              "specificity": 0.9999345643951787,
+              "F1": 0.01358695652173913,
+              "confusion_matrix": {
+                "TN": 76406,
+                "FP": 5,
+                "FN": 721,
+                "TP": 5
+              }
+            },
+            {
+              "threshold": 0.5,
+              "comparison": ">=",
+              "precision": 0.0,
+              "recall": 0.0,
+              "sensitivity": 0.0,
+              "specificity": 1.0,
+              "F1": 0.0,
+              "confusion_matrix": {
+                "TN": 76411,
+                "FP": 0,
+                "FN": 726,
+                "TP": 0
+              }
+            },
+            {
+              "threshold": 0.75,
+              "comparison": ">",
+              "precision": 0.0,
+              "recall": 0.0,
+              "sensitivity": 0.0,
+              "specificity": 1.0,
+              "F1": 0.0,
+              "confusion_matrix": {
+                "TN": 76411,
+                "FP": 0,
+                "FN": 726,
+                "TP": 0
+              }
+            }
+          ]
+        }
+      },
+      "xgboost": {
+        "context": {
+          "dataset": "PhysioNet Challenge 2019 v1.0.0 training sets A+B",
+          "split": "validation_calibration",
+          "patients": 1991,
+          "hours": 77137,
+          "positive_hours": 726,
+          "weighting": "Each eligible observed hour has equal evaluation weight; hours are correlated within patients",
+          "framing": "Supplied SepsisLabel on pre-onset hours only, six-hour label-implied onset framing; uncertain onsets excluded"
+        },
+        "slope": 0.9047697998320181,
+        "intercept": -0.4809625989837445,
+        "raw": {
+          "hours": 77137,
+          "positive_hours": 726,
+          "prevalence": 0.009411825712693,
+          "AUROC": 0.8141433868236054,
+          "PR_AUC_average_precision": 0.05250896090238032,
+          "Brier_score": 0.009197798894111084,
+          "calibration_bins": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 75996,
+              "mean_probability": 0.008385199630960773,
+              "observed_fraction": 0.008171482709616295
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 939,
+              "mean_probability": 0.13437163329924257,
+              "observed_fraction": 0.09052183173588925
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 168,
+              "mean_probability": 0.23927466518112592,
+              "observed_fraction": 0.10714285714285714
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 30,
+              "mean_probability": 0.3389330436786016,
+              "observed_fraction": 0.03333333333333333
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 4,
+              "mean_probability": 0.429453544318676,
+              "observed_fraction": 0.25
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            }
+          ],
+          "expected_calibration_error_10_bins": 0.0011602803331805175,
+          "prototype_thresholds": [
+            {
+              "threshold": 0.3,
+              "comparison": ">=",
+              "precision": 0.058823529411764705,
+              "recall": 0.0027548209366391185,
+              "sensitivity": 0.0027548209366391185,
+              "specificity": 0.9995812121291437,
+              "F1": 0.005263157894736842,
+              "confusion_matrix": {
+                "TN": 76379,
+                "FP": 32,
+                "FN": 724,
+                "TP": 2
+              }
+            },
+            {
+              "threshold": 0.5,
+              "comparison": ">=",
+              "precision": 0.0,
+              "recall": 0.0,
+              "sensitivity": 0.0,
+              "specificity": 1.0,
+              "F1": 0.0,
+              "confusion_matrix": {
+                "TN": 76411,
+                "FP": 0,
+                "FN": 726,
+                "TP": 0
+              }
+            },
+            {
+              "threshold": 0.75,
+              "comparison": ">",
+              "precision": 0.0,
+              "recall": 0.0,
+              "sensitivity": 0.0,
+              "specificity": 1.0,
+              "F1": 0.0,
+              "confusion_matrix": {
+                "TN": 76411,
+                "FP": 0,
+                "FN": 726,
+                "TP": 0
+              }
+            }
+          ]
+        },
+        "calibrated_fit_population": {
+          "hours": 77137,
+          "positive_hours": 726,
+          "prevalence": 0.009411825712693,
+          "AUROC": 0.8141433868236054,
+          "PR_AUC_average_precision": 0.05250896090238032,
+          "Brier_score": 0.00912581375461288,
+          "calibration_bins": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 76500,
+              "mean_probability": 0.008312600569577359,
+              "observed_fraction": 0.00869281045751634
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 565,
+              "mean_probability": 0.13149085418323675,
+              "observed_fraction": 0.09557522123893805
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 68,
+              "mean_probability": 0.22769509668007681,
+              "observed_fraction": 0.08823529411764706
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 4,
+              "mean_probability": 0.32368058978179604,
+              "observed_fraction": 0.25
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            }
+          ],
+          "expected_calibration_error_10_bins": 0.0007669001643080904,
+          "prototype_thresholds": [
+            {
+              "threshold": 0.3,
+              "comparison": ">=",
+              "precision": 0.25,
+              "recall": 0.0013774104683195593,
+              "sensitivity": 0.0013774104683195593,
+              "specificity": 0.9999607386371072,
+              "F1": 0.0027397260273972603,
+              "confusion_matrix": {
+                "TN": 76408,
+                "FP": 3,
+                "FN": 725,
+                "TP": 1
+              }
+            },
+            {
+              "threshold": 0.5,
+              "comparison": ">=",
+              "precision": 0.0,
+              "recall": 0.0,
+              "sensitivity": 0.0,
+              "specificity": 1.0,
+              "F1": 0.0,
+              "confusion_matrix": {
+                "TN": 76411,
+                "FP": 0,
+                "FN": 726,
+                "TP": 0
+              }
+            },
+            {
+              "threshold": 0.75,
+              "comparison": ">",
+              "precision": 0.0,
+              "recall": 0.0,
+              "sensitivity": 0.0,
+              "specificity": 1.0,
+              "F1": 0.0,
+              "confusion_matrix": {
+                "TN": 76411,
+                "FP": 0,
+                "FN": 726,
+                "TP": 0
+              }
+            }
+          ]
+        }
+      }
+    },
+    "thresholds": {
+      "logistic_regression": {
+        "selected": {
+          "selection_split": "validation_threshold",
+          "clinically_validated": false,
+          "research_max_f1": {
+            "threshold": 0.055974635190600114,
+            "F1": 0.10966810966810966
+          },
+          "target_precision": 0.2,
+          "recall_at_target_precision": {
+            "threshold": 0.14815445566034624,
+            "precision": 0.2,
+            "recall": 0.01282051282051282
+          },
+          "target_recall": 0.8,
+          "precision_at_target_recall": {
+            "threshold": 0.008132787018192793,
+            "precision": 0.024244296027487164,
+            "recall": 0.8051282051282052
+          }
+        },
+        "context": {
+          "dataset": "PhysioNet Challenge 2019 v1.0.0 training sets A+B",
+          "split": "validation_threshold",
+          "patients": 2000,
+          "hours": 77533,
+          "positive_hours": 780,
+          "weighting": "Each eligible observed hour has equal evaluation weight; hours are correlated within patients",
+          "framing": "Supplied SepsisLabel on pre-onset hours only, six-hour label-implied onset framing; uncertain onsets excluded"
+        },
+        "metrics": {
+          "hours": 77533,
+          "positive_hours": 780,
+          "prevalence": 0.010060232417164304,
+          "AUROC": 0.8120052101863888,
+          "PR_AUC_average_precision": 0.053719571696553996,
+          "Brier_score": 0.009773652710411739,
+          "calibration_bins": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 77379,
+              "mean_probability": 0.008588123714143853,
+              "observed_fraction": 0.009808862869770868
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 143,
+              "mean_probability": 0.13099255572341637,
+              "observed_fraction": 0.1258741258741259
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 8,
+              "mean_probability": 0.2355504063847799,
+              "observed_fraction": 0.375
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 3,
+              "mean_probability": 0.3222049562720348,
+              "observed_fraction": 0.0
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            }
+          ],
+          "expected_calibration_error_10_bins": 0.0012546105814227387,
+          "prototype_thresholds": [
+            {
+              "threshold": 0.3,
+              "comparison": ">=",
+              "precision": 0.0,
+              "recall": 0.0,
+              "sensitivity": 0.0,
+              "specificity": 0.9999609135799252,
+              "F1": 0.0,
+              "confusion_matrix": {
+                "TN": 76750,
+                "FP": 3,
+                "FN": 780,
+                "TP": 0
+              }
+            },
+            {
+              "threshold": 0.5,
+              "comparison": ">=",
+              "precision": 0.0,
+              "recall": 0.0,
+              "sensitivity": 0.0,
+              "specificity": 1.0,
+              "F1": 0.0,
+              "confusion_matrix": {
+                "TN": 76753,
+                "FP": 0,
+                "FN": 780,
+                "TP": 0
+              }
+            },
+            {
+              "threshold": 0.75,
+              "comparison": ">",
+              "precision": 0.0,
+              "recall": 0.0,
+              "sensitivity": 0.0,
+              "specificity": 1.0,
+              "F1": 0.0,
+              "confusion_matrix": {
+                "TN": 76753,
+                "FP": 0,
+                "FN": 780,
+                "TP": 0
+              }
+            }
+          ],
+          "research_operating_point": {
+            "threshold": 0.055974635190600114,
+            "comparison": ">=",
+            "precision": 0.1254125412541254,
+            "recall": 0.09743589743589744,
+            "sensitivity": 0.09743589743589744,
+            "specificity": 0.9930947324534546,
+            "F1": 0.10966810966810966,
+            "confusion_matrix": {
+              "TN": 76223,
+              "FP": 530,
+              "FN": 704,
+              "TP": 76
+            }
+          },
+          "recall_at_target_precision_frozen_validation_threshold": {
+            "threshold": 0.14815445566034624,
+            "comparison": ">=",
+            "precision": 0.2,
+            "recall": 0.01282051282051282,
+            "sensitivity": 0.01282051282051282,
+            "specificity": 0.9994788477323362,
+            "F1": 0.024096385542168676,
+            "confusion_matrix": {
+              "TN": 76713,
+              "FP": 40,
+              "FN": 770,
+              "TP": 10
+            }
+          },
+          "precision_at_target_recall_frozen_validation_threshold": {
+            "threshold": 0.008132787018192793,
+            "comparison": ">=",
+            "precision": 0.024244296027487164,
+            "recall": 0.8051282051282052,
+            "sensitivity": 0.8051282051282052,
+            "specificity": 0.6706969108699334,
+            "F1": 0.04707116890904321,
+            "confusion_matrix": {
+              "TN": 51478,
+              "FP": 25275,
+              "FN": 152,
+              "TP": 628
+            }
+          }
+        }
+      },
+      "random_forest": {
+        "selected": {
+          "selection_split": "validation_threshold",
+          "clinically_validated": false,
+          "research_max_f1": {
+            "threshold": 0.07798597287751201,
+            "F1": 0.10187265917602996
+          },
+          "target_precision": 0.2,
+          "recall_at_target_precision": {
+            "threshold": 0.13286617570274725,
+            "precision": 0.21428571428571427,
+            "recall": 0.019230769230769232
+          },
+          "target_recall": 0.8,
+          "precision_at_target_recall": {
+            "threshold": 0.006506212592015526,
+            "precision": 0.01889873302893774,
+            "recall": 0.8012820512820513
+          }
+        },
+        "context": {
+          "dataset": "PhysioNet Challenge 2019 v1.0.0 training sets A+B",
+          "split": "validation_threshold",
+          "patients": 2000,
+          "hours": 77533,
+          "positive_hours": 780,
+          "weighting": "Each eligible observed hour has equal evaluation weight; hours are correlated within patients",
+          "framing": "Supplied SepsisLabel on pre-onset hours only, six-hour label-implied onset framing; uncertain onsets excluded"
+        },
+        "metrics": {
+          "hours": 77533,
+          "positive_hours": 780,
+          "prevalence": 0.010060232417164304,
+          "AUROC": 0.7732418627585592,
+          "PR_AUC_average_precision": 0.0494403806255316,
+          "Brier_score": 0.009771014675810286,
+          "calibration_bins": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 77274,
+              "mean_probability": 0.008841676992583711,
+              "observed_fraction": 0.009589253824054662
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 253,
+              "mean_probability": 0.12201191030146163,
+              "observed_fraction": 0.1541501976284585
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 6,
+              "mean_probability": 0.2235651549091692,
+              "observed_fraction": 0.0
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            }
+          ],
+          "expected_calibration_error_10_bins": 0.0008672517469757584,
+          "prototype_thresholds": [
+            {
+              "threshold": 0.3,
+              "comparison": ">=",
+              "precision": 0.0,
+              "recall": 0.0,
+              "sensitivity": 0.0,
+              "specificity": 1.0,
+              "F1": 0.0,
+              "confusion_matrix": {
+                "TN": 76753,
+                "FP": 0,
+                "FN": 780,
+                "TP": 0
+              }
+            },
+            {
+              "threshold": 0.5,
+              "comparison": ">=",
+              "precision": 0.0,
+              "recall": 0.0,
+              "sensitivity": 0.0,
+              "specificity": 1.0,
+              "F1": 0.0,
+              "confusion_matrix": {
+                "TN": 76753,
+                "FP": 0,
+                "FN": 780,
+                "TP": 0
+              }
+            },
+            {
+              "threshold": 0.75,
+              "comparison": ">",
+              "precision": 0.0,
+              "recall": 0.0,
+              "sensitivity": 0.0,
+              "specificity": 1.0,
+              "F1": 0.0,
+              "confusion_matrix": {
+                "TN": 76753,
+                "FP": 0,
+                "FN": 780,
+                "TP": 0
+              }
+            }
+          ],
+          "research_operating_point": {
+            "threshold": 0.07798597287751201,
+            "comparison": ">=",
+            "precision": 0.12252252252252252,
+            "recall": 0.08717948717948718,
+            "sensitivity": 0.08717948717948718,
+            "specificity": 0.9936549711411932,
+            "F1": 0.10187265917602996,
+            "confusion_matrix": {
+              "TN": 76266,
+              "FP": 487,
+              "FN": 712,
+              "TP": 68
+            }
+          },
+          "recall_at_target_precision_frozen_validation_threshold": {
+            "threshold": 0.13286617570274725,
+            "comparison": ">=",
+            "precision": 0.21428571428571427,
+            "recall": 0.019230769230769232,
+            "sensitivity": 0.019230769230769232,
+            "specificity": 0.9992834156319623,
+            "F1": 0.03529411764705882,
+            "confusion_matrix": {
+              "TN": 76698,
+              "FP": 55,
+              "FN": 765,
+              "TP": 15
+            }
+          },
+          "precision_at_target_recall_frozen_validation_threshold": {
+            "threshold": 0.006506212592015526,
+            "comparison": ">=",
+            "precision": 0.01889873302893774,
+            "recall": 0.8012820512820513,
+            "sensitivity": 0.8012820512820513,
+            "specificity": 0.5772673380845048,
+            "F1": 0.03692653097397418,
+            "confusion_matrix": {
+              "TN": 44307,
+              "FP": 32446,
+              "FN": 155,
+              "TP": 625
+            }
+          }
+        }
+      },
+      "xgboost": {
+        "selected": {
+          "selection_split": "validation_threshold",
+          "clinically_validated": false,
+          "research_max_f1": {
+            "threshold": 0.06359397084821286,
+            "F1": 0.13365617433414043
+          },
+          "target_precision": 0.2,
+          "recall_at_target_precision": {
+            "threshold": 0.12502056621145116,
+            "precision": 0.23770491803278687,
+            "recall": 0.03717948717948718
+          },
+          "target_recall": 0.8,
+          "precision_at_target_recall": {
+            "threshold": 0.00684568213090552,
+            "precision": 0.025411304772764293,
+            "recall": 0.8
+          }
+        },
+        "context": {
+          "dataset": "PhysioNet Challenge 2019 v1.0.0 training sets A+B",
+          "split": "validation_threshold",
+          "patients": 2000,
+          "hours": 77533,
+          "positive_hours": 780,
+          "weighting": "Each eligible observed hour has equal evaluation weight; hours are correlated within patients",
+          "framing": "Supplied SepsisLabel on pre-onset hours only, six-hour label-implied onset framing; uncertain onsets excluded"
+        },
+        "metrics": {
+          "hours": 77533,
+          "positive_hours": 780,
+          "prevalence": 0.010060232417164304,
+          "AUROC": 0.8282867837455281,
+          "PR_AUC_average_precision": 0.0690248472190744,
+          "Brier_score": 0.00966055884539699,
+          "calibration_bins": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 77196,
+              "mean_probability": 0.00855206731530911,
+              "observed_fraction": 0.00946940255971812
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 330,
+              "mean_probability": 0.12253446430954403,
+              "observed_fraction": 0.14242424242424243
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 7,
+              "mean_probability": 0.22069176448254374,
+              "observed_fraction": 0.2857142857142857
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            }
+          ],
+          "expected_calibration_error_10_bins": 0.0010038744270680954,
+          "prototype_thresholds": [
+            {
+              "threshold": 0.3,
+              "comparison": ">=",
+              "precision": 0.0,
+              "recall": 0.0,
+              "sensitivity": 0.0,
+              "specificity": 1.0,
+              "F1": 0.0,
+              "confusion_matrix": {
+                "TN": 76753,
+                "FP": 0,
+                "FN": 780,
+                "TP": 0
+              }
+            },
+            {
+              "threshold": 0.5,
+              "comparison": ">=",
+              "precision": 0.0,
+              "recall": 0.0,
+              "sensitivity": 0.0,
+              "specificity": 1.0,
+              "F1": 0.0,
+              "confusion_matrix": {
+                "TN": 76753,
+                "FP": 0,
+                "FN": 780,
+                "TP": 0
+              }
+            },
+            {
+              "threshold": 0.75,
+              "comparison": ">",
+              "precision": 0.0,
+              "recall": 0.0,
+              "sensitivity": 0.0,
+              "specificity": 1.0,
+              "F1": 0.0,
+              "confusion_matrix": {
+                "TN": 76753,
+                "FP": 0,
+                "FN": 780,
+                "TP": 0
+              }
+            }
+          ],
+          "research_operating_point": {
+            "threshold": 0.06359397084821286,
+            "comparison": ">=",
+            "precision": 0.10739299610894941,
+            "recall": 0.17692307692307693,
+            "sensitivity": 0.17692307692307693,
+            "specificity": 0.9850559587247404,
+            "F1": 0.13365617433414043,
+            "confusion_matrix": {
+              "TN": 75606,
+              "FP": 1147,
+              "FN": 642,
+              "TP": 138
+            }
+          },
+          "recall_at_target_precision_frozen_validation_threshold": {
+            "threshold": 0.12502056621145116,
+            "comparison": ">=",
+            "precision": 0.23770491803278687,
+            "recall": 0.03717948717948718,
+            "sensitivity": 0.03717948717948718,
+            "specificity": 0.9987883209776817,
+            "F1": 0.06430155210643015,
+            "confusion_matrix": {
+              "TN": 76660,
+              "FP": 93,
+              "FN": 751,
+              "TP": 29
+            }
+          },
+          "precision_at_target_recall_frozen_validation_threshold": {
+            "threshold": 0.00684568213090552,
+            "comparison": ">=",
+            "precision": 0.025411304772764293,
+            "recall": 0.8,
+            "sensitivity": 0.8,
+            "specificity": 0.6881945982567457,
+            "F1": 0.049257972844963686,
+            "confusion_matrix": {
+              "TN": 52821,
+              "FP": 23932,
+              "FN": 156,
+              "TP": 624
+            }
+          }
+        }
+      }
+    },
+    "timing_seconds": {
+      "logistic_regression": 7.35899999999674,
+      "random_forest": 26.18800000000192
+    },
+    "xgboost_candidates": [
+      {
+        "index": 0,
+        "parameters": {
+          "n_estimators": 250,
+          "learning_rate": 0.05,
+          "min_child_weight": 10,
+          "reg_lambda": 10,
+          "subsample": 0.8,
+          "colsample_bytree": 0.9,
+          "tree_method": "hist",
+          "max_bin": 128,
+          "n_jobs": 4,
+          "objective": "binary:logistic",
+          "eval_metric": "aucpr",
+          "max_depth": 3,
+          "random_state": 2019,
+          "scale_pos_weight": 1.0
+        },
+        "metrics": {
+          "hours": 78059,
+          "positive_hours": 763,
+          "prevalence": 0.009774657630766471,
+          "AUROC": 0.8361547568632355,
+          "PR_AUC_average_precision": 0.09277303164022814,
+          "Brier_score": 0.009265193019306629,
+          "calibration_bins": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 76945,
+              "mean_probability": 0.00875929701998126,
+              "observed_fraction": 0.0080187146663201
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 1002,
+              "mean_probability": 0.13194993600814403,
+              "observed_fraction": 0.11377245508982035
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 89,
+              "mean_probability": 0.23039731366580793,
+              "observed_fraction": 0.21348314606741572
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 17,
+              "mean_probability": 0.34220117681166706,
+              "observed_fraction": 0.47058823529411764
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 6,
+              "mean_probability": 0.4357636918624242,
+              "observed_fraction": 0.8333333333333334
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            }
+          ],
+          "expected_calibration_error_10_bins": 0.0010411522546010376,
+          "prototype_thresholds": [
+            {
+              "threshold": 0.3,
+              "comparison": ">=",
+              "precision": 0.5652173913043478,
+              "recall": 0.01703800786369594,
+              "sensitivity": 0.01703800786369594,
+              "specificity": 0.9998706271993376,
+              "F1": 0.03307888040712468,
+              "confusion_matrix": {
+                "TN": 77286,
+                "FP": 10,
+                "FN": 750,
+                "TP": 13
+              }
+            },
+            {
+              "threshold": 0.5,
+              "comparison": ">=",
+              "precision": 0.0,
+              "recall": 0.0,
+              "sensitivity": 0.0,
+              "specificity": 1.0,
+              "F1": 0.0,
+              "confusion_matrix": {
+                "TN": 77296,
+                "FP": 0,
+                "FN": 763,
+                "TP": 0
+              }
+            },
+            {
+              "threshold": 0.75,
+              "comparison": ">",
+              "precision": 0.0,
+              "recall": 0.0,
+              "sensitivity": 0.0,
+              "specificity": 1.0,
+              "F1": 0.0,
+              "confusion_matrix": {
+                "TN": 77296,
+                "FP": 0,
+                "FN": 763,
+                "TP": 0
+              }
+            }
+          ]
+        },
+        "training_seconds": 7.76600000000326
+      },
+      {
+        "index": 1,
+        "parameters": {
+          "n_estimators": 250,
+          "learning_rate": 0.05,
+          "min_child_weight": 10,
+          "reg_lambda": 10,
+          "subsample": 0.8,
+          "colsample_bytree": 0.9,
+          "tree_method": "hist",
+          "max_bin": 128,
+          "n_jobs": 4,
+          "objective": "binary:logistic",
+          "eval_metric": "aucpr",
+          "max_depth": 4,
+          "random_state": 2019,
+          "scale_pos_weight": 1.0
+        },
+        "metrics": {
+          "hours": 78059,
+          "positive_hours": 763,
+          "prevalence": 0.009774657630766471,
+          "AUROC": 0.82949562682631,
+          "PR_AUC_average_precision": 0.08723982204617131,
+          "Brier_score": 0.009287002302624928,
+          "calibration_bins": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 76972,
+              "mean_probability": 0.008688514880438668,
+              "observed_fraction": 0.008054877098165566
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 963,
+              "mean_probability": 0.13353206002978396,
+              "observed_fraction": 0.12045690550363447
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 98,
+              "mean_probability": 0.22816011507292183,
+              "observed_fraction": 0.1326530612244898
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 24,
+              "mean_probability": 0.35103991255164146,
+              "observed_fraction": 0.5
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 2,
+              "mean_probability": 0.4731914550065994,
+              "observed_fraction": 1.0
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 0,
+              "mean_probability": null,
+              "observed_fraction": null
+            }
+          ],
+          "expected_calibration_error_10_bins": 0.0009653222774017203,
+          "prototype_thresholds": [
+            {
+              "threshold": 0.3,
+              "comparison": ">=",
+              "precision": 0.5384615384615384,
+              "recall": 0.01834862385321101,
+              "sensitivity": 0.01834862385321101,
+              "specificity": 0.9998447526392051,
+              "F1": 0.035487959442332066,
+              "confusion_matrix": {
+                "TN": 77284,
+                "FP": 12,
+                "FN": 749,
+                "TP": 14
+              }
+            },
+            {
+              "threshold": 0.5,
+              "comparison": ">=",
+              "precision": 0.0,
+              "recall": 0.0,
+              "sensitivity": 0.0,
+              "specificity": 1.0,
+              "F1": 0.0,
+              "confusion_matrix": {
+                "TN": 77296,
+                "FP": 0,
+                "FN": 763,
+                "TP": 0
+              }
+            },
+            {
+              "threshold": 0.75,
+              "comparison": ">",
+              "precision": 0.0,
+              "recall": 0.0,
+              "sensitivity": 0.0,
+              "specificity": 1.0,
+              "F1": 0.0,
+              "confusion_matrix": {
+                "TN": 77296,
+                "FP": 0,
+                "FN": 763,
+                "TP": 0
+              }
+            }
+          ]
+        },
+        "training_seconds": 7.577999999994063
+      },
+      {
+        "index": 2,
+        "parameters": {
+          "n_estimators": 250,
+          "learning_rate": 0.05,
+          "min_child_weight": 10,
+          "reg_lambda": 10,
+          "subsample": 0.8,
+          "colsample_bytree": 0.9,
+          "tree_method": "hist",
+          "max_bin": 128,
+          "n_jobs": 4,
+          "objective": "binary:logistic",
+          "eval_metric": "aucpr",
+          "max_depth": 3,
+          "random_state": 2019,
+          "scale_pos_weight": 10.019689108711631
+        },
+        "metrics": {
+          "hours": 78059,
+          "positive_hours": 763,
+          "prevalence": 0.009774657630766471,
+          "AUROC": 0.8273681140097552,
+          "PR_AUC_average_precision": 0.07694767995105407,
+          "Brier_score": 0.020132972447173183,
+          "calibration_bins": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "n": 64174,
+              "mean_probability": 0.040402661340168684,
+              "observed_fraction": 0.00422289400691869
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "n": 7790,
+              "mean_probability": 0.13767146226186042,
+              "observed_fraction": 0.014762516046213094
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 2549,
+              "mean_probability": 0.24516393384567753,
+              "observed_fraction": 0.03138485680659082
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 1487,
+              "mean_probability": 0.34514221017923463,
+              "observed_fraction": 0.04774714189643578
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 976,
+              "mean_probability": 0.44908731720853046,
+              "observed_fraction": 0.09016393442622951
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 640,
+              "mean_probability": 0.5483356397598982,
+              "observed_fraction": 0.1265625
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 338,
+              "mean_probability": 0.6380946207681352,
+              "observed_fraction": 0.09467455621301775
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 95,
+              "mean_probability": 0.7382329765119051,
+              "observed_fraction": 0.23157894736842105
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 9,
+              "mean_probability": 0.8203255666626824,
+              "observed_fraction": 0.3333333333333333
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 1,
+              "mean_probability": 0.907414436340332,
+              "observed_fraction": 0.0
+            }
+          ],
+          "expected_calibration_error_10_bins": 0.06563948941107953,
+          "prototype_thresholds": [
+            {
+              "threshold": 0.3,
+              "comparison": ">=",
+              "precision": 0.08375634517766498,
+              "recall": 0.3892529488859764,
+              "sensitivity": 0.3892529488859764,
+              "specificity": 0.9579667770647899,
+              "F1": 0.13785100951496868,
+              "confusion_matrix": {
+                "TN": 74047,
+                "FP": 3249,
+                "FN": 466,
+                "TP": 297
+              }
+            },
+            {
+              "threshold": 0.5,
+              "comparison": ">=",
+              "precision": 0.12742382271468145,
+              "recall": 0.18086500655307994,
+              "sensitivity": 0.18086500655307994,
+              "specificity": 0.9877742703374043,
+              "F1": 0.1495124593716143,
+              "confusion_matrix": {
+                "TN": 76351,
+                "FP": 945,
+                "FN": 625,
+                "TP": 138
+              }
+            },
+            {
+              "threshold": 0.75,
+              "comparison": ">",
+              "precision": 0.2894736842105263,
+              "recall": 0.014416775884665793,
+              "sensitivity": 0.014416775884665793,
+              "specificity": 0.9996506934382116,
+              "F1": 0.02746566791510612,
+              "confusion_matrix": {
+                "TN": 77269,
+                "FP": 27,
+                "FN": 752,
+                "TP": 11
+              }
+            }
+          ]
+        },
+        "training_seconds": 6.328000000001339
+      }
+    ],
+    "selected_xgboost_candidate": 0,
+    "decisions_frozen_utc": "2026-09-23T02:00:46.960374+00:00",
+    "frozen_artifact_sha256": {
+      "models/logistic_regression.pkl": "d0f5a57b9cea00fb4a6751cdb16d41db71c2041ececffeb8b150c5442f298707",
+      "models/random_forest.pkl": "373bf91a4fee7ead2b04b2a6490f21ba25803ecc32e402c9bd0f62b7cfaf14cd",
+      "models/caresense_xgboost.pkl": "4f2d5accd60e4c88b5b750c9b939cfbf30e13072740867e2d65ae3d11f7a5c88",
+      "models/logistic_regression_estimator.pkl": "935e134f42f2716c644e9f30cc4db72462211491bce46442440fd5dfa3a92817",
+      "models/random_forest_estimator.pkl": "0a55ddaf428958b9062a030f0aff3509de4befc46ce65c3e245636f1b7b0240e",
+      "models/xgboost_estimator.pkl": "086b9e8249b7f5a267e93601360284927c06b42ccf6cbb9fc7e6475ffb9359a1",
+      "models/caresense_xgboost.json": "84f3661234095afadfc34843470954de317d18da85f28e85a61aea9e3903bf84",
+      "artifacts/preprocessing_pipeline.pkl": "d7927ab8dceddad43ef837ecb5c757d7cea02a54cf243c9bace7dd91eadfcb18",
+      "artifacts/feature_names.json": "b9f638ac306d0a9b05d5f6dbaf271173c131429de8d9ce1b50138285dec2fcca",
+      "artifacts/feature_dictionary.json": "99b28dc9674ddf91e447c80cd119b8bcd7b61005b8c9513dafafda6ed92a7e53",
+      "artifacts/run_config.json": "6e89a3e375ace238275a2306e2a893b6a9f393bd5908d287a32498e71778b793",
+      "artifacts/model_metadata.json": "e9cf1ff10c9642d66467c3234f0ee8e87a23dfcca0e037bda12dfcaa532cb999",
+      "artifacts/threshold_config.json": "f7b5ebff6e0f88d11f341befc283579cdc2f0001ccf8e827a6a5215b300c4c88"
+    }
+  },
+  "shap": {
+    "sample_split": "validation_selection",
+    "sample_hours": 1000,
+    "additivity_max_absolute_error": 5.7220458984375e-06,
+    "top_features": [
+      {
+        "feature": "ICULOS",
+        "mean_absolute_shap": 0.48808568716049194,
+        "xgboost_importance": 0.09680907428264618
+      },
+      {
+        "feature": "Lactate_hours_since_last",
+        "mean_absolute_shap": 0.17882435023784637,
+        "xgboost_importance": 0.03314237296581268
+      },
+      {
+        "feature": "Temp_last",
+        "mean_absolute_shap": 0.17696508765220642,
+        "xgboost_importance": 0.015153042040765285
+      },
+      {
+        "feature": "HospAdmTime",
+        "mean_absolute_shap": 0.15591850876808167,
+        "xgboost_importance": 0.009798260405659676
+      },
+      {
+        "feature": "Unit1",
+        "mean_absolute_shap": 0.14862863719463348,
+        "xgboost_importance": 0.015227718278765678
+      },
+      {
+        "feature": "MAP_mean_24h",
+        "mean_absolute_shap": 0.08187948912382126,
+        "xgboost_importance": 0.009436205960810184
+      },
+      {
+        "feature": "HR_trend_6h",
+        "mean_absolute_shap": 0.06987467408180237,
+        "xgboost_importance": 0.009056332521140575
+      },
+      {
+        "feature": "Resp_mean_24h",
+        "mean_absolute_shap": 0.06132957711815834,
+        "xgboost_importance": 0.013209766708314419
+      },
+      {
+        "feature": "FiO2",
+        "mean_absolute_shap": 0.05736884847283363,
+        "xgboost_importance": 0.021688535809516907
+      },
+      {
+        "feature": "O2Sat_std_6h",
+        "mean_absolute_shap": 0.054216425865888596,
+        "xgboost_importance": 0.007830815389752388
+      },
+      {
+        "feature": "WBC_last",
+        "mean_absolute_shap": 0.05116799846291542,
+        "xgboost_importance": 0.008084322325885296
+      },
+      {
+        "feature": "Resp_std_6h",
+        "mean_absolute_shap": 0.04762479290366173,
+        "xgboost_importance": 0.006525167729705572
+      },
+      {
+        "feature": "WBC_delta_6h",
+        "mean_absolute_shap": 0.046335626393556595,
+        "xgboost_importance": 0.007810521405190229
+      },
+      {
+        "feature": "HR_max_6h",
+        "mean_absolute_shap": 0.042070139199495316,
+        "xgboost_importance": 0.01040215790271759
+      },
+      {
+        "feature": "SBP_hours_since_last",
+        "mean_absolute_shap": 0.035418085753917694,
+        "xgboost_importance": 0.01229188498109579
+      }
+    ]
+  },
+  "completed_utc": "2026-09-23T02:01:36.321280+00:00",
+  "software_versions": {
+    "numpy": "2.3.5",
+    "pandas": "3.0.1",
+    "scikit-learn": "1.9.1",
+    "xgboost": "3.4.1",
+    "shap": "0.52.0",
+    "pyarrow": "25.0.1"
+  }
+}

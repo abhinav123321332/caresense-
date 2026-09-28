@@ -1,0 +1,1137 @@
+{
+  "version": "causal-hourly-v1",
+  "features": {
+    "HR": {
+      "source": "HR",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": [
+        0,
+        350
+      ]
+    },
+    "O2Sat": {
+      "source": "O2Sat",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": [
+        0,
+        100
+      ]
+    },
+    "Temp": {
+      "source": "Temp",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": [
+        20,
+        45
+      ]
+    },
+    "SBP": {
+      "source": "SBP",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": [
+        0,
+        350
+      ]
+    },
+    "MAP": {
+      "source": "MAP",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": [
+        0,
+        300
+      ]
+    },
+    "DBP": {
+      "source": "DBP",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": [
+        0,
+        250
+      ]
+    },
+    "Resp": {
+      "source": "Resp",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": [
+        0,
+        100
+      ]
+    },
+    "EtCO2": {
+      "source": "EtCO2",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": [
+        0,
+        150
+      ]
+    },
+    "BaseExcess": {
+      "source": "BaseExcess",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": null
+    },
+    "HCO3": {
+      "source": "HCO3",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": null
+    },
+    "FiO2": {
+      "source": "FiO2",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": [
+        0,
+        1
+      ]
+    },
+    "pH": {
+      "source": "pH",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": [
+        6,
+        8
+      ]
+    },
+    "PaCO2": {
+      "source": "PaCO2",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": null
+    },
+    "SaO2": {
+      "source": "SaO2",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": [
+        0,
+        100
+      ]
+    },
+    "AST": {
+      "source": "AST",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": null
+    },
+    "BUN": {
+      "source": "BUN",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": null
+    },
+    "Alkalinephos": {
+      "source": "Alkalinephos",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": null
+    },
+    "Calcium": {
+      "source": "Calcium",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": null
+    },
+    "Chloride": {
+      "source": "Chloride",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": null
+    },
+    "Creatinine": {
+      "source": "Creatinine",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": null
+    },
+    "Bilirubin_direct": {
+      "source": "Bilirubin_direct",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": null
+    },
+    "Glucose": {
+      "source": "Glucose",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": null
+    },
+    "Lactate": {
+      "source": "Lactate",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": [
+        0,
+        50
+      ]
+    },
+    "Magnesium": {
+      "source": "Magnesium",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": null
+    },
+    "Phosphate": {
+      "source": "Phosphate",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": null
+    },
+    "Potassium": {
+      "source": "Potassium",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": null
+    },
+    "Bilirubin_total": {
+      "source": "Bilirubin_total",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": null
+    },
+    "TroponinI": {
+      "source": "TroponinI",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": null
+    },
+    "Hct": {
+      "source": "Hct",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": [
+        0,
+        100
+      ]
+    },
+    "Hgb": {
+      "source": "Hgb",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": [
+        0,
+        40
+      ]
+    },
+    "PTT": {
+      "source": "PTT",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": null
+    },
+    "WBC": {
+      "source": "WBC",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": [
+        0,
+        500
+      ]
+    },
+    "Fibrinogen": {
+      "source": "Fibrinogen",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": null
+    },
+    "Platelets": {
+      "source": "Platelets",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": null
+    },
+    "Age": {
+      "source": "Age",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": [
+        0,
+        120
+      ]
+    },
+    "Gender": {
+      "source": "Gender",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": [
+        0,
+        1
+      ]
+    },
+    "Unit1": {
+      "source": "Unit1",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": [
+        0,
+        1
+      ]
+    },
+    "Unit2": {
+      "source": "Unit2",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": [
+        0,
+        1
+      ]
+    },
+    "HospAdmTime": {
+      "source": "HospAdmTime",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": null
+    },
+    "ICULOS": {
+      "source": "ICULOS",
+      "operation": "current",
+      "definition": "Current observation; absent or outside documented mechanical bounds becomes NaN.",
+      "bounds": [
+        1,
+        10000
+      ]
+    },
+    "HR_missing": {
+      "source": "HR",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "O2Sat_missing": {
+      "source": "O2Sat",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "Temp_missing": {
+      "source": "Temp",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "SBP_missing": {
+      "source": "SBP",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "MAP_missing": {
+      "source": "MAP",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "DBP_missing": {
+      "source": "DBP",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "Resp_missing": {
+      "source": "Resp",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "EtCO2_missing": {
+      "source": "EtCO2",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "BaseExcess_missing": {
+      "source": "BaseExcess",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "HCO3_missing": {
+      "source": "HCO3",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "FiO2_missing": {
+      "source": "FiO2",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "pH_missing": {
+      "source": "pH",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "PaCO2_missing": {
+      "source": "PaCO2",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "SaO2_missing": {
+      "source": "SaO2",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "AST_missing": {
+      "source": "AST",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "BUN_missing": {
+      "source": "BUN",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "Alkalinephos_missing": {
+      "source": "Alkalinephos",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "Calcium_missing": {
+      "source": "Calcium",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "Chloride_missing": {
+      "source": "Chloride",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "Creatinine_missing": {
+      "source": "Creatinine",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "Bilirubin_direct_missing": {
+      "source": "Bilirubin_direct",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "Glucose_missing": {
+      "source": "Glucose",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "Lactate_missing": {
+      "source": "Lactate",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "Magnesium_missing": {
+      "source": "Magnesium",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "Phosphate_missing": {
+      "source": "Phosphate",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "Potassium_missing": {
+      "source": "Potassium",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "Bilirubin_total_missing": {
+      "source": "Bilirubin_total",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "TroponinI_missing": {
+      "source": "TroponinI",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "Hct_missing": {
+      "source": "Hct",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "Hgb_missing": {
+      "source": "Hgb",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "PTT_missing": {
+      "source": "PTT",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "WBC_missing": {
+      "source": "WBC",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "Fibrinogen_missing": {
+      "source": "Fibrinogen",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "Platelets_missing": {
+      "source": "Platelets",
+      "operation": "missing",
+      "definition": "1 if current observation is missing after mechanical cleaning, otherwise 0."
+    },
+    "HR_out_of_range": {
+      "source": "HR",
+      "operation": "out_of_range",
+      "bounds": [
+        0,
+        350
+      ],
+      "definition": "1 for observed value outside inclusive mechanical bounds; missing observations give 0."
+    },
+    "O2Sat_out_of_range": {
+      "source": "O2Sat",
+      "operation": "out_of_range",
+      "bounds": [
+        0,
+        100
+      ],
+      "definition": "1 for observed value outside inclusive mechanical bounds; missing observations give 0."
+    },
+    "Temp_out_of_range": {
+      "source": "Temp",
+      "operation": "out_of_range",
+      "bounds": [
+        20,
+        45
+      ],
+      "definition": "1 for observed value outside inclusive mechanical bounds; missing observations give 0."
+    },
+    "SBP_out_of_range": {
+      "source": "SBP",
+      "operation": "out_of_range",
+      "bounds": [
+        0,
+        350
+      ],
+      "definition": "1 for observed value outside inclusive mechanical bounds; missing observations give 0."
+    },
+    "MAP_out_of_range": {
+      "source": "MAP",
+      "operation": "out_of_range",
+      "bounds": [
+        0,
+        300
+      ],
+      "definition": "1 for observed value outside inclusive mechanical bounds; missing observations give 0."
+    },
+    "DBP_out_of_range": {
+      "source": "DBP",
+      "operation": "out_of_range",
+      "bounds": [
+        0,
+        250
+      ],
+      "definition": "1 for observed value outside inclusive mechanical bounds; missing observations give 0."
+    },
+    "Resp_out_of_range": {
+      "source": "Resp",
+      "operation": "out_of_range",
+      "bounds": [
+        0,
+        100
+      ],
+      "definition": "1 for observed value outside inclusive mechanical bounds; missing observations give 0."
+    },
+    "EtCO2_out_of_range": {
+      "source": "EtCO2",
+      "operation": "out_of_range",
+      "bounds": [
+        0,
+        150
+      ],
+      "definition": "1 for observed value outside inclusive mechanical bounds; missing observations give 0."
+    },
+    "FiO2_out_of_range": {
+      "source": "FiO2",
+      "operation": "out_of_range",
+      "bounds": [
+        0,
+        1
+      ],
+      "definition": "1 for observed value outside inclusive mechanical bounds; missing observations give 0."
+    },
+    "pH_out_of_range": {
+      "source": "pH",
+      "operation": "out_of_range",
+      "bounds": [
+        6,
+        8
+      ],
+      "definition": "1 for observed value outside inclusive mechanical bounds; missing observations give 0."
+    },
+    "SaO2_out_of_range": {
+      "source": "SaO2",
+      "operation": "out_of_range",
+      "bounds": [
+        0,
+        100
+      ],
+      "definition": "1 for observed value outside inclusive mechanical bounds; missing observations give 0."
+    },
+    "Lactate_out_of_range": {
+      "source": "Lactate",
+      "operation": "out_of_range",
+      "bounds": [
+        0,
+        50
+      ],
+      "definition": "1 for observed value outside inclusive mechanical bounds; missing observations give 0."
+    },
+    "Hct_out_of_range": {
+      "source": "Hct",
+      "operation": "out_of_range",
+      "bounds": [
+        0,
+        100
+      ],
+      "definition": "1 for observed value outside inclusive mechanical bounds; missing observations give 0."
+    },
+    "Hgb_out_of_range": {
+      "source": "Hgb",
+      "operation": "out_of_range",
+      "bounds": [
+        0,
+        40
+      ],
+      "definition": "1 for observed value outside inclusive mechanical bounds; missing observations give 0."
+    },
+    "WBC_out_of_range": {
+      "source": "WBC",
+      "operation": "out_of_range",
+      "bounds": [
+        0,
+        500
+      ],
+      "definition": "1 for observed value outside inclusive mechanical bounds; missing observations give 0."
+    },
+    "Age_out_of_range": {
+      "source": "Age",
+      "operation": "out_of_range",
+      "bounds": [
+        0,
+        120
+      ],
+      "definition": "1 for observed value outside inclusive mechanical bounds; missing observations give 0."
+    },
+    "Gender_out_of_range": {
+      "source": "Gender",
+      "operation": "out_of_range",
+      "bounds": [
+        0,
+        1
+      ],
+      "definition": "1 for observed value outside inclusive mechanical bounds; missing observations give 0."
+    },
+    "Unit1_out_of_range": {
+      "source": "Unit1",
+      "operation": "out_of_range",
+      "bounds": [
+        0,
+        1
+      ],
+      "definition": "1 for observed value outside inclusive mechanical bounds; missing observations give 0."
+    },
+    "Unit2_out_of_range": {
+      "source": "Unit2",
+      "operation": "out_of_range",
+      "bounds": [
+        0,
+        1
+      ],
+      "definition": "1 for observed value outside inclusive mechanical bounds; missing observations give 0."
+    },
+    "ICULOS_out_of_range": {
+      "source": "ICULOS",
+      "operation": "out_of_range",
+      "bounds": [
+        1,
+        10000
+      ],
+      "definition": "1 for observed value outside inclusive mechanical bounds; missing observations give 0."
+    },
+    "HR_last": {
+      "source": "HR",
+      "operation": "last_observed",
+      "maximum_age_hours": 6,
+      "definition": "Most recent valid observation at or before t, retained through maximum age; otherwise NaN."
+    },
+    "HR_hours_since_last": {
+      "source": "HR",
+      "operation": "recency",
+      "definition": "Actual hours since latest valid observation, even if expired for carry-forward; NaN before first valid measurement."
+    },
+    "O2Sat_last": {
+      "source": "O2Sat",
+      "operation": "last_observed",
+      "maximum_age_hours": 6,
+      "definition": "Most recent valid observation at or before t, retained through maximum age; otherwise NaN."
+    },
+    "O2Sat_hours_since_last": {
+      "source": "O2Sat",
+      "operation": "recency",
+      "definition": "Actual hours since latest valid observation, even if expired for carry-forward; NaN before first valid measurement."
+    },
+    "Temp_last": {
+      "source": "Temp",
+      "operation": "last_observed",
+      "maximum_age_hours": 6,
+      "definition": "Most recent valid observation at or before t, retained through maximum age; otherwise NaN."
+    },
+    "Temp_hours_since_last": {
+      "source": "Temp",
+      "operation": "recency",
+      "definition": "Actual hours since latest valid observation, even if expired for carry-forward; NaN before first valid measurement."
+    },
+    "SBP_last": {
+      "source": "SBP",
+      "operation": "last_observed",
+      "maximum_age_hours": 6,
+      "definition": "Most recent valid observation at or before t, retained through maximum age; otherwise NaN."
+    },
+    "SBP_hours_since_last": {
+      "source": "SBP",
+      "operation": "recency",
+      "definition": "Actual hours since latest valid observation, even if expired for carry-forward; NaN before first valid measurement."
+    },
+    "MAP_last": {
+      "source": "MAP",
+      "operation": "last_observed",
+      "maximum_age_hours": 6,
+      "definition": "Most recent valid observation at or before t, retained through maximum age; otherwise NaN."
+    },
+    "MAP_hours_since_last": {
+      "source": "MAP",
+      "operation": "recency",
+      "definition": "Actual hours since latest valid observation, even if expired for carry-forward; NaN before first valid measurement."
+    },
+    "DBP_last": {
+      "source": "DBP",
+      "operation": "last_observed",
+      "maximum_age_hours": 6,
+      "definition": "Most recent valid observation at or before t, retained through maximum age; otherwise NaN."
+    },
+    "DBP_hours_since_last": {
+      "source": "DBP",
+      "operation": "recency",
+      "definition": "Actual hours since latest valid observation, even if expired for carry-forward; NaN before first valid measurement."
+    },
+    "Resp_last": {
+      "source": "Resp",
+      "operation": "last_observed",
+      "maximum_age_hours": 6,
+      "definition": "Most recent valid observation at or before t, retained through maximum age; otherwise NaN."
+    },
+    "Resp_hours_since_last": {
+      "source": "Resp",
+      "operation": "recency",
+      "definition": "Actual hours since latest valid observation, even if expired for carry-forward; NaN before first valid measurement."
+    },
+    "EtCO2_last": {
+      "source": "EtCO2",
+      "operation": "last_observed",
+      "maximum_age_hours": 6,
+      "definition": "Most recent valid observation at or before t, retained through maximum age; otherwise NaN."
+    },
+    "EtCO2_hours_since_last": {
+      "source": "EtCO2",
+      "operation": "recency",
+      "definition": "Actual hours since latest valid observation, even if expired for carry-forward; NaN before first valid measurement."
+    },
+    "Lactate_last": {
+      "source": "Lactate",
+      "operation": "last_observed",
+      "maximum_age_hours": 24,
+      "definition": "Most recent valid observation at or before t, retained through maximum age; otherwise NaN."
+    },
+    "Lactate_hours_since_last": {
+      "source": "Lactate",
+      "operation": "recency",
+      "definition": "Actual hours since latest valid observation, even if expired for carry-forward; NaN before first valid measurement."
+    },
+    "WBC_last": {
+      "source": "WBC",
+      "operation": "last_observed",
+      "maximum_age_hours": 24,
+      "definition": "Most recent valid observation at or before t, retained through maximum age; otherwise NaN."
+    },
+    "WBC_hours_since_last": {
+      "source": "WBC",
+      "operation": "recency",
+      "definition": "Actual hours since latest valid observation, even if expired for carry-forward; NaN before first valid measurement."
+    },
+    "Lactate_previous": {
+      "source": "Lactate",
+      "operation": "previous_observed",
+      "maximum_age_hours": 24,
+      "definition": "Latest valid observation strictly before current hour; NaN if none within 24 hours. At a measurement hour this is the preceding measurement."
+    },
+    "WBC_previous": {
+      "source": "WBC",
+      "operation": "previous_observed",
+      "maximum_age_hours": 24,
+      "definition": "Latest valid observation strictly before current hour; NaN if none within 24 hours. At a measurement hour this is the preceding measurement."
+    },
+    "HR_mean_3h": {
+      "source": "HR",
+      "operation": "mean",
+      "window_hours": 3,
+      "definition": "Mean of actual valid measurements in (t-window,t]; at least one observation."
+    },
+    "HR_mean_6h": {
+      "source": "HR",
+      "operation": "mean",
+      "window_hours": 6,
+      "definition": "Mean of actual valid measurements in (t-window,t]; at least one observation."
+    },
+    "HR_mean_12h": {
+      "source": "HR",
+      "operation": "mean",
+      "window_hours": 12,
+      "definition": "Mean of actual valid measurements in (t-window,t]; at least one observation."
+    },
+    "HR_mean_24h": {
+      "source": "HR",
+      "operation": "mean",
+      "window_hours": 24,
+      "definition": "Mean of actual valid measurements in (t-window,t]; at least one observation."
+    },
+    "HR_min_6h": {
+      "source": "HR",
+      "operation": "min",
+      "window_hours": 6,
+      "definition": "Min of actual valid observations in (t-6,t]; at least one observation."
+    },
+    "HR_max_6h": {
+      "source": "HR",
+      "operation": "max",
+      "window_hours": 6,
+      "definition": "Max of actual valid observations in (t-6,t]; at least one observation."
+    },
+    "HR_std_6h": {
+      "source": "HR",
+      "operation": "std",
+      "window_hours": 6,
+      "definition": "Sample standard deviation of actual valid observations in (t-6,t]; at least two observations."
+    },
+    "HR_count_6h": {
+      "source": "HR",
+      "operation": "count",
+      "window_hours": 6,
+      "definition": "Count of actual valid observations in (t-6,t]; zero means no observations."
+    },
+    "HR_delta_6h": {
+      "source": "HR",
+      "operation": "delta",
+      "lag_hours": 6,
+      "definition": "Bounded carried value at t minus bounded carried value available at exact hour t-6; both required. Vital carry limit 6h, lab limit 24h. No observation after t-6 enters the historical endpoint."
+    },
+    "HR_trend_6h": {
+      "source": "HR",
+      "operation": "least_squares_slope",
+      "window_hours": 6,
+      "definition": "Least-squares slope per actual ICULOS hour using valid measurements in (t-6,t]; at least two observations at distinct hours."
+    },
+    "O2Sat_mean_3h": {
+      "source": "O2Sat",
+      "operation": "mean",
+      "window_hours": 3,
+      "definition": "Mean of actual valid measurements in (t-window,t]; at least one observation."
+    },
+    "O2Sat_mean_6h": {
+      "source": "O2Sat",
+      "operation": "mean",
+      "window_hours": 6,
+      "definition": "Mean of actual valid measurements in (t-window,t]; at least one observation."
+    },
+    "O2Sat_mean_12h": {
+      "source": "O2Sat",
+      "operation": "mean",
+      "window_hours": 12,
+      "definition": "Mean of actual valid measurements in (t-window,t]; at least one observation."
+    },
+    "O2Sat_mean_24h": {
+      "source": "O2Sat",
+      "operation": "mean",
+      "window_hours": 24,
+      "definition": "Mean of actual valid measurements in (t-window,t]; at least one observation."
+    },
+    "O2Sat_min_6h": {
+      "source": "O2Sat",
+      "operation": "min",
+      "window_hours": 6,
+      "definition": "Min of actual valid observations in (t-6,t]; at least one observation."
+    },
+    "O2Sat_max_6h": {
+      "source": "O2Sat",
+      "operation": "max",
+      "window_hours": 6,
+      "definition": "Max of actual valid observations in (t-6,t]; at least one observation."
+    },
+    "O2Sat_std_6h": {
+      "source": "O2Sat",
+      "operation": "std",
+      "window_hours": 6,
+      "definition": "Sample standard deviation of actual valid observations in (t-6,t]; at least two observations."
+    },
+    "O2Sat_count_6h": {
+      "source": "O2Sat",
+      "operation": "count",
+      "window_hours": 6,
+      "definition": "Count of actual valid observations in (t-6,t]; zero means no observations."
+    },
+    "O2Sat_delta_6h": {
+      "source": "O2Sat",
+      "operation": "delta",
+      "lag_hours": 6,
+      "definition": "Bounded carried value at t minus bounded carried value available at exact hour t-6; both required. Vital carry limit 6h, lab limit 24h. No observation after t-6 enters the historical endpoint."
+    },
+    "O2Sat_trend_6h": {
+      "source": "O2Sat",
+      "operation": "least_squares_slope",
+      "window_hours": 6,
+      "definition": "Least-squares slope per actual ICULOS hour using valid measurements in (t-6,t]; at least two observations at distinct hours."
+    },
+    "MAP_mean_3h": {
+      "source": "MAP",
+      "operation": "mean",
+      "window_hours": 3,
+      "definition": "Mean of actual valid measurements in (t-window,t]; at least one observation."
+    },
+    "MAP_mean_6h": {
+      "source": "MAP",
+      "operation": "mean",
+      "window_hours": 6,
+      "definition": "Mean of actual valid measurements in (t-window,t]; at least one observation."
+    },
+    "MAP_mean_12h": {
+      "source": "MAP",
+      "operation": "mean",
+      "window_hours": 12,
+      "definition": "Mean of actual valid measurements in (t-window,t]; at least one observation."
+    },
+    "MAP_mean_24h": {
+      "source": "MAP",
+      "operation": "mean",
+      "window_hours": 24,
+      "definition": "Mean of actual valid measurements in (t-window,t]; at least one observation."
+    },
+    "MAP_min_6h": {
+      "source": "MAP",
+      "operation": "min",
+      "window_hours": 6,
+      "definition": "Min of actual valid observations in (t-6,t]; at least one observation."
+    },
+    "MAP_max_6h": {
+      "source": "MAP",
+      "operation": "max",
+      "window_hours": 6,
+      "definition": "Max of actual valid observations in (t-6,t]; at least one observation."
+    },
+    "MAP_std_6h": {
+      "source": "MAP",
+      "operation": "std",
+      "window_hours": 6,
+      "definition": "Sample standard deviation of actual valid observations in (t-6,t]; at least two observations."
+    },
+    "MAP_count_6h": {
+      "source": "MAP",
+      "operation": "count",
+      "window_hours": 6,
+      "definition": "Count of actual valid observations in (t-6,t]; zero means no observations."
+    },
+    "MAP_delta_6h": {
+      "source": "MAP",
+      "operation": "delta",
+      "lag_hours": 6,
+      "definition": "Bounded carried value at t minus bounded carried value available at exact hour t-6; both required. Vital carry limit 6h, lab limit 24h. No observation after t-6 enters the historical endpoint."
+    },
+    "MAP_trend_6h": {
+      "source": "MAP",
+      "operation": "least_squares_slope",
+      "window_hours": 6,
+      "definition": "Least-squares slope per actual ICULOS hour using valid measurements in (t-6,t]; at least two observations at distinct hours."
+    },
+    "Resp_mean_3h": {
+      "source": "Resp",
+      "operation": "mean",
+      "window_hours": 3,
+      "definition": "Mean of actual valid measurements in (t-window,t]; at least one observation."
+    },
+    "Resp_mean_6h": {
+      "source": "Resp",
+      "operation": "mean",
+      "window_hours": 6,
+      "definition": "Mean of actual valid measurements in (t-window,t]; at least one observation."
+    },
+    "Resp_mean_12h": {
+      "source": "Resp",
+      "operation": "mean",
+      "window_hours": 12,
+      "definition": "Mean of actual valid measurements in (t-window,t]; at least one observation."
+    },
+    "Resp_mean_24h": {
+      "source": "Resp",
+      "operation": "mean",
+      "window_hours": 24,
+      "definition": "Mean of actual valid measurements in (t-window,t]; at least one observation."
+    },
+    "Resp_min_6h": {
+      "source": "Resp",
+      "operation": "min",
+      "window_hours": 6,
+      "definition": "Min of actual valid observations in (t-6,t]; at least one observation."
+    },
+    "Resp_max_6h": {
+      "source": "Resp",
+      "operation": "max",
+      "window_hours": 6,
+      "definition": "Max of actual valid observations in (t-6,t]; at least one observation."
+    },
+    "Resp_std_6h": {
+      "source": "Resp",
+      "operation": "std",
+      "window_hours": 6,
+      "definition": "Sample standard deviation of actual valid observations in (t-6,t]; at least two observations."
+    },
+    "Resp_count_6h": {
+      "source": "Resp",
+      "operation": "count",
+      "window_hours": 6,
+      "definition": "Count of actual valid observations in (t-6,t]; zero means no observations."
+    },
+    "Resp_delta_6h": {
+      "source": "Resp",
+      "operation": "delta",
+      "lag_hours": 6,
+      "definition": "Bounded carried value at t minus bounded carried value available at exact hour t-6; both required. Vital carry limit 6h, lab limit 24h. No observation after t-6 enters the historical endpoint."
+    },
+    "Resp_trend_6h": {
+      "source": "Resp",
+      "operation": "least_squares_slope",
+      "window_hours": 6,
+      "definition": "Least-squares slope per actual ICULOS hour using valid measurements in (t-6,t]; at least two observations at distinct hours."
+    },
+    "Lactate_mean_3h": {
+      "source": "Lactate",
+      "operation": "mean",
+      "window_hours": 3,
+      "definition": "Mean of actual valid measurements in (t-window,t]; at least one observation."
+    },
+    "Lactate_mean_6h": {
+      "source": "Lactate",
+      "operation": "mean",
+      "window_hours": 6,
+      "definition": "Mean of actual valid measurements in (t-window,t]; at least one observation."
+    },
+    "Lactate_mean_12h": {
+      "source": "Lactate",
+      "operation": "mean",
+      "window_hours": 12,
+      "definition": "Mean of actual valid measurements in (t-window,t]; at least one observation."
+    },
+    "Lactate_mean_24h": {
+      "source": "Lactate",
+      "operation": "mean",
+      "window_hours": 24,
+      "definition": "Mean of actual valid measurements in (t-window,t]; at least one observation."
+    },
+    "Lactate_min_6h": {
+      "source": "Lactate",
+      "operation": "min",
+      "window_hours": 6,
+      "definition": "Min of actual valid observations in (t-6,t]; at least one observation."
+    },
+    "Lactate_max_6h": {
+      "source": "Lactate",
+      "operation": "max",
+      "window_hours": 6,
+      "definition": "Max of actual valid observations in (t-6,t]; at least one observation."
+    },
+    "Lactate_std_6h": {
+      "source": "Lactate",
+      "operation": "std",
+      "window_hours": 6,
+      "definition": "Sample standard deviation of actual valid observations in (t-6,t]; at least two observations."
+    },
+    "Lactate_count_6h": {
+      "source": "Lactate",
+      "operation": "count",
+      "window_hours": 6,
+      "definition": "Count of actual valid observations in (t-6,t]; zero means no observations."
+    },
+    "Lactate_delta_6h": {
+      "source": "Lactate",
+      "operation": "delta",
+      "lag_hours": 6,
+      "definition": "Bounded carried value at t minus bounded carried value available at exact hour t-6; both required. Vital carry limit 6h, lab limit 24h. No observation after t-6 enters the historical endpoint."
+    },
+    "Lactate_trend_6h": {
+      "source": "Lactate",
+      "operation": "least_squares_slope",
+      "window_hours": 6,
+      "definition": "Least-squares slope per actual ICULOS hour using valid measurements in (t-6,t]; at least two observations at distinct hours."
+    },
+    "WBC_mean_3h": {
+      "source": "WBC",
+      "operation": "mean",
+      "window_hours": 3,
+      "definition": "Mean of actual valid measurements in (t-window,t]; at least one observation."
+    },
+    "WBC_mean_6h": {
+      "source": "WBC",
+      "operation": "mean",
+      "window_hours": 6,
+      "definition": "Mean of actual valid measurements in (t-window,t]; at least one observation."
+    },
+    "WBC_mean_12h": {
+      "source": "WBC",
+      "operation": "mean",
+      "window_hours": 12,
+      "definition": "Mean of actual valid measurements in (t-window,t]; at least one observation."
+    },
+    "WBC_mean_24h": {
+      "source": "WBC",
+      "operation": "mean",
+      "window_hours": 24,
+      "definition": "Mean of actual valid measurements in (t-window,t]; at least one observation."
+    },
+    "WBC_min_6h": {
+      "source": "WBC",
+      "operation": "min",
+      "window_hours": 6,
+      "definition": "Min of actual valid observations in (t-6,t]; at least one observation."
+    },
+    "WBC_max_6h": {
+      "source": "WBC",
+      "operation": "max",
+      "window_hours": 6,
+      "definition": "Max of actual valid observations in (t-6,t]; at least one observation."
+    },
+    "WBC_std_6h": {
+      "source": "WBC",
+      "operation": "std",
+      "window_hours": 6,
+      "definition": "Sample standard deviation of actual valid observations in (t-6,t]; at least two observations."
+    },
+    "WBC_count_6h": {
+      "source": "WBC",
+      "operation": "count",
+      "window_hours": 6,
+      "definition": "Count of actual valid observations in (t-6,t]; zero means no observations."
+    },
+    "WBC_delta_6h": {
+      "source": "WBC",
+      "operation": "delta",
+      "lag_hours": 6,
+      "definition": "Bounded carried value at t minus bounded carried value available at exact hour t-6; both required. Vital carry limit 6h, lab limit 24h. No observation after t-6 enters the historical endpoint."
+    },
+    "WBC_trend_6h": {
+      "source": "WBC",
+      "operation": "least_squares_slope",
+      "window_hours": 6,
+      "definition": "Least-squares slope per actual ICULOS hour using valid measurements in (t-6,t]; at least two observations at distinct hours."
+    }
+  }
+}
