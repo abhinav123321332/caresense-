@@ -1,0 +1,6 @@
+*.json -text
+*.pkl -text
+*.joblib -text
+*.sha256 -text
+*.bin -text
+*.npy -text
